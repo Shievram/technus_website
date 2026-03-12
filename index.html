@@ -191,6 +191,12 @@
       transition: 0.3s ease;
     }
 
+    .form-note {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      margin-top: 8px;
+    }
+
     /* LIGHT THEME */
     body.light-theme {
       background: #f8fafc;
@@ -220,7 +226,8 @@
     }
 
     body.light-theme .hero p,
-    body.light-theme .section-text {
+    body.light-theme .section-text,
+    body.light-theme .form-note {
       color: #334155;
     }
 
@@ -313,7 +320,7 @@
   </header>
 
   <section class="hero" id="home">
-    <p id="heroTag" style="letter-spacing:2px;text-transform:uppercase;font-size:.8rem;color:#93c5fd;margin-bottom:12px;">Technus Solutions</p>
+    <p id="heroTag" style="letter-spacing:2px;text-transform:uppercase;font-size:.8rem;color:#93c5fd;margin-bottom:12px;">Technus Enterprise</p>
     <h1 id="heroTitle">Data-Driven Solutions for Smarter Business Decisions</h1>
     <p id="heroText">
       Transforming data into powerful digital solutions. We build cloud-ready systems, dashboards,
@@ -423,19 +430,64 @@
       <p class="section-text" id="contactText">Ready to start your next project? Reach out to us and we can help bring your ideas to life.</p>
 
       <div id="contactGrid" style="display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:start;">
-        <form style="display:grid;gap:14px;">
+        <form
+          action="https://formspree.io/f/xrbqqyrr"
+          method="POST"
+          style="display:grid;gap:14px;"
+        >
+          <input type="hidden" name="_subject" value="New message from Technus Solutions website">
+
           <div id="nameEmailGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-            <input type="text" id="nameInput" placeholder="Name" style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;">
-            <input type="email" id="emailInput" placeholder="Email" style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;">
+            <input
+              type="text"
+              id="nameInput"
+              name="name"
+              placeholder="Name"
+              required
+              style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;"
+            >
+            <input
+              type="email"
+              id="emailInput"
+              name="email"
+              placeholder="Email"
+              required
+              style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;"
+            >
           </div>
-          <input type="text" id="subjectInput" placeholder="Topic / Subject" style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;">
-          <textarea rows="6" id="messageInput" placeholder="Message" style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;resize:vertical;"></textarea>
-          <button type="button" class="btn" id="sendBtn" style="border:none;cursor:pointer;width:220px;">Send Message</button>
+
+          <input
+            type="text"
+            id="subjectInput"
+            name="subject"
+            placeholder="Topic / Subject"
+            style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;"
+          >
+
+          <textarea
+            rows="6"
+            id="messageInput"
+            name="message"
+            placeholder="Message"
+            required
+            style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;resize:vertical;"
+          ></textarea>
+
+          <button
+            type="submit"
+            class="btn"
+            id="sendBtn"
+            style="border:none;cursor:pointer;width:220px;"
+          >
+            Send Message
+          </button>
+
+          <p class="form-note">After submission, Formspree will process and forward the message to your email.</p>
         </form>
 
         <div class="card">
           <h3 id="contactDetailsTitle" style="margin-bottom:16px;">Contact Details</h3>
-          <p id="contactEmail" style="margin-bottom:12px;"><strong>Email:</strong><br>technusent@gmail.com</p>
+          <p id="contactEmail" style="margin-bottom:12px;"><strong>Email:</strong><br>technussolutions@gmail.com</p>
           <p id="contactPhone" style="margin-bottom:12px;"><strong>Phone:</strong><br>+60 14-305 7391</p>
           <p id="contactLocation"><strong>Location:</strong><br>Malaysia</p>
         </div>
@@ -457,7 +509,7 @@
       </div>
       <div>
         <p id="footerContactTitle" style="font-weight:700;color:#fff;margin-bottom:10px;">Get In Touch</p>
-        <p>technusent@gmail.com</p>
+        <p>technussolutions@gmail.com</p>
         <p>+60 14-305 7391</p>
       </div>
     </div>
@@ -475,7 +527,7 @@
         langBtn: "BM",
         themeLight: "☀ Light",
         themeDark: "🌙 Dark",
-        heroTag: "Technus Solutions",
+        heroTag: "Technus Enterprise",
         heroTitle: "Data-Driven Solutions for Smarter Business Decisions",
         heroText: "Transforming data into powerful digital solutions. We build cloud-ready systems, dashboards, analytics workflows, and scalable platforms that help businesses work smarter.",
         heroBtn1: "Get Started",
@@ -519,7 +571,7 @@
         messagePlaceholder: "Message",
         sendBtn: "Send Message",
         contactDetailsTitle: "Contact Details",
-        contactEmail: "<strong>Email:</strong><br>technusent@gmail.com",
+        contactEmail: "<strong>Email:</strong><br>technussolutions@gmail.com",
         contactPhone: "<strong>Phone:</strong><br>+60 14-305 7391",
         contactLocation: "<strong>Location:</strong><br>Malaysia",
         footerDesc: "Cloud data engineering, modern analytics, and digital solutions for smarter business operations.",
@@ -536,7 +588,7 @@
         langBtn: "EN",
         themeLight: "☀ Cerah",
         themeDark: "🌙 Gelap",
-        heroTag: "Technus Solutions",
+        heroTag: "Technus Enterprise",
         heroTitle: "Penyelesaian Dipacu Data untuk Keputusan Perniagaan yang Lebih Bijak",
         heroText: "Menukarkan data kepada penyelesaian digital yang berkuasa. Kami membina sistem sedia awan, papan pemuka, aliran kerja analitik, dan platform berskala yang membantu perniagaan beroperasi dengan lebih bijak.",
         heroBtn1: "Mulakan",
@@ -580,7 +632,7 @@
         messagePlaceholder: "Mesej",
         sendBtn: "Hantar Mesej",
         contactDetailsTitle: "Maklumat Hubungan",
-        contactEmail: "<strong>E-mel:</strong><br>technusent@gmail.com",
+        contactEmail: "<strong>E-mel:</strong><br>technussolutions@gmail.com",
         contactPhone: "<strong>Telefon:</strong><br>+60 14-305 7391",
         contactLocation: "<strong>Lokasi:</strong><br>Malaysia",
         footerDesc: "Kejuruteraan data awan, analitik moden, dan penyelesaian digital untuk operasi perniagaan yang lebih bijak.",
@@ -695,5 +747,3 @@
   </script>
 </body>
 </html>
-
-
