@@ -197,6 +197,39 @@
       margin-top: 8px;
     }
 
+    #popupOverlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    #popupBox {
+      width: 100%;
+      max-width: 420px;
+      background: #111827;
+      color: #e5e7eb;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    }
+
+    #popupTitle {
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    #popupMessage {
+      color: #cbd5f5;
+      margin-bottom: 18px;
+    }
+
     /* LIGHT THEME */
     body.light-theme {
       background: #f8fafc;
@@ -264,6 +297,20 @@
     body.light-theme footer a,
     body.light-theme footer p[style*="font-weight:700"] {
       color: #0f172a !important;
+    }
+
+    body.light-theme #popupBox {
+      background: #ffffff;
+      color: #0f172a;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    body.light-theme #popupTitle {
+      color: #0f172a;
+    }
+
+    body.light-theme #popupMessage {
+      color: #334155;
     }
 
     @media (max-width: 768px) {
@@ -430,11 +477,7 @@
       <p class="section-text" id="contactText">Ready to start your next project? Reach out to us and we can help bring your ideas to life.</p>
 
       <div id="contactGrid" style="display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:start;">
-        <form
-          action="https://formspree.io/f/xrbqqyrr"
-          method="POST"
-          style="display:grid;gap:14px;"
-        >
+        <form id="contactForm" style="display:grid;gap:14px;">
           <input type="hidden" name="_subject" value="New message from Technus Solutions website">
 
           <div id="nameEmailGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
@@ -482,12 +525,12 @@
             Send Message
           </button>
 
-          <p class="form-note">After submission, Formspree will process and forward the message to your email.</p>
+          <p class="form-note">Your message will be sent without leaving this page.</p>
         </form>
 
         <div class="card">
           <h3 id="contactDetailsTitle" style="margin-bottom:16px;">Contact Details</h3>
-          <p id="contactEmail" style="margin-bottom:12px;"><strong>Email:</strong><br>technussolutions@gmail.com</p>
+          <p id="contactEmail" style="margin-bottom:12px;"><strong>Email:</strong><br>technusent@gmail.com</p>
           <p id="contactPhone" style="margin-bottom:12px;"><strong>Phone:</strong><br>+60 14-305 7391</p>
           <p id="contactLocation"><strong>Location:</strong><br>Malaysia</p>
         </div>
@@ -509,12 +552,21 @@
       </div>
       <div>
         <p id="footerContactTitle" style="font-weight:700;color:#fff;margin-bottom:10px;">Get In Touch</p>
-        <p>technussolutions@gmail.com</p>
+        <p>technusent@gmail.com</p>
         <p>+60 14-305 7391</p>
       </div>
     </div>
     <p id="footerCopyright" style="margin-top:24px;">© 2026 Technus Solutions. All rights reserved.</p>
   </footer>
+
+  <div id="popupOverlay">
+    <div id="popupBox">
+      <div id="popupIcon" style="font-size:2rem;margin-bottom:12px;">✅</div>
+      <h3 id="popupTitle">Message Sent</h3>
+      <p id="popupMessage">Thank you. Your message has been submitted successfully.</p>
+      <button id="popupCloseBtn" class="btn" style="border:none;cursor:pointer;">Close</button>
+    </div>
+  </div>
 
   <script>
     const translations = {
@@ -571,13 +623,19 @@
         messagePlaceholder: "Message",
         sendBtn: "Send Message",
         contactDetailsTitle: "Contact Details",
-        contactEmail: "<strong>Email:</strong><br>technussolutions@gmail.com",
+        contactEmail: "<strong>Email:</strong><br>technusent@gmail.com",
         contactPhone: "<strong>Phone:</strong><br>+60 14-305 7391",
         contactLocation: "<strong>Location:</strong><br>Malaysia",
         footerDesc: "Cloud data engineering, modern analytics, and digital solutions for smarter business operations.",
         footerQuickLinksTitle: "Quick Links",
         footerContactTitle: "Get In Touch",
-        footerCopyright: "© 2026 Technus Solutions. All rights reserved."
+        footerCopyright: "© 2026 Technus Solutions. All rights reserved.",
+        popupSuccessTitle: "Message Sent",
+        popupSuccessMessage: "Thank you. Your message has been submitted successfully.",
+        popupErrorTitle: "Submission Failed",
+        popupErrorMessage: "Sorry, something went wrong. Please try again later.",
+        popupClose: "Close",
+        formNote: "Your message will be sent without leaving this page."
       },
       ms: {
         navHome: "Utama",
@@ -632,15 +690,23 @@
         messagePlaceholder: "Mesej",
         sendBtn: "Hantar Mesej",
         contactDetailsTitle: "Maklumat Hubungan",
-        contactEmail: "<strong>E-mel:</strong><br>technussolutions@gmail.com",
+        contactEmail: "<strong>E-mel:</strong><br>technusent@gmail.com",
         contactPhone: "<strong>Telefon:</strong><br>+60 14-305 7391",
         contactLocation: "<strong>Lokasi:</strong><br>Malaysia",
         footerDesc: "Kejuruteraan data awan, analitik moden, dan penyelesaian digital untuk operasi perniagaan yang lebih bijak.",
         footerQuickLinksTitle: "Pautan Pantas",
         footerContactTitle: "Berhubung Dengan Kami",
-        footerCopyright: "© 2026 Technus Solutions. Hak cipta terpelihara."
+        footerCopyright: "© 2026 Technus Solutions. Hak cipta terpelihara.",
+        popupSuccessTitle: "Mesej Dihantar",
+        popupSuccessMessage: "Terima kasih. Mesej anda telah berjaya dihantar.",
+        popupErrorTitle: "Penghantaran Gagal",
+        popupErrorMessage: "Maaf, sesuatu telah berlaku. Sila cuba lagi kemudian.",
+        popupClose: "Tutup",
+        formNote: "Mesej anda akan dihantar tanpa meninggalkan halaman ini."
       }
     };
+
+    const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_REAL_FORMSPREE_ID";
 
     function applyLanguage(lang) {
       const t = translations[lang];
@@ -703,6 +769,7 @@
       document.getElementById("contactEmail").innerHTML = t.contactEmail;
       document.getElementById("contactPhone").innerHTML = t.contactPhone;
       document.getElementById("contactLocation").innerHTML = t.contactLocation;
+      document.querySelector(".form-note").textContent = t.formNote;
 
       document.getElementById("footerDesc").textContent = t.footerDesc;
       document.getElementById("footerQuickLinksTitle").textContent = t.footerQuickLinksTitle;
@@ -711,6 +778,7 @@
       document.getElementById("footerServices").textContent = t.navServices;
       document.getElementById("footerContactTitle").textContent = t.footerContactTitle;
       document.getElementById("footerCopyright").textContent = t.footerCopyright;
+      document.getElementById("popupCloseBtn").textContent = t.popupClose;
 
       localStorage.setItem("siteLanguage", lang);
     }
@@ -726,6 +794,62 @@
 
       localStorage.setItem("siteTheme", theme);
     }
+
+    function showPopup(type, title, message) {
+      const overlay = document.getElementById("popupOverlay");
+      const icon = document.getElementById("popupIcon");
+      const popupTitle = document.getElementById("popupTitle");
+      const popupMessage = document.getElementById("popupMessage");
+
+      icon.textContent = type === "success" ? "✅" : "⚠️";
+      popupTitle.textContent = title;
+      popupMessage.textContent = message;
+      overlay.style.display = "flex";
+    }
+
+    function closePopup() {
+      document.getElementById("popupOverlay").style.display = "none";
+    }
+
+    document.getElementById("popupCloseBtn").addEventListener("click", closePopup);
+    document.getElementById("popupOverlay").addEventListener("click", function (e) {
+      if (e.target.id === "popupOverlay") closePopup();
+    });
+
+    document.getElementById("contactForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const lang = localStorage.getItem("siteLanguage") || "en";
+      const t = translations[lang];
+      const sendBtn = document.getElementById("sendBtn");
+      const form = e.target;
+      const formData = new FormData(form);
+
+      sendBtn.disabled = true;
+      sendBtn.textContent = lang === "ms" ? "Menghantar..." : "Sending...";
+
+      try {
+        const response = await fetch(FORMSPREE_ENDPOINT, {
+          method: "POST",
+          body: formData,
+          headers: {
+            "Accept": "application/json"
+          }
+        });
+
+        if (response.ok) {
+          form.reset();
+          showPopup("success", t.popupSuccessTitle, t.popupSuccessMessage);
+        } else {
+          showPopup("error", t.popupErrorTitle, t.popupErrorMessage);
+        }
+      } catch (error) {
+        showPopup("error", t.popupErrorTitle, t.popupErrorMessage);
+      } finally {
+        sendBtn.disabled = false;
+        sendBtn.textContent = t.sendBtn;
+      }
+    });
 
     document.getElementById("langToggle").addEventListener("click", function () {
       const currentLang = localStorage.getItem("siteLanguage") || "en";
