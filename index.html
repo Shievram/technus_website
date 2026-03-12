@@ -192,40 +192,64 @@
     }
 
     .form-note {
-      display: none;
+      font-size: 0.9rem;
+      color: #94a3b8;
+      margin-top: 8px;
     }
 
-    #popupOverlay {
-      display: none;
+    .floating-menu {
       position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.55);
-      z-index: 9999;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+      right: 24px;
+      bottom: 24px;
+      z-index: 1300;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
     }
 
-    #popupBox {
-      width: 100%;
-      max-width: 420px;
-      background: #111827;
+    .floating-menu-items {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(17, 24, 39, 0.94);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.28);
+      backdrop-filter: blur(12px);
+      min-width: 170px;
+    }
+
+    .floating-menu.open .floating-menu-items {
+      display: flex;
+    }
+
+    .floating-menu-link {
       color: #e5e7eb;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      padding: 28px 24px;
-      text-align: center;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      text-decoration: none;
+      font-size: 0.95rem;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.04);
+      transition: 0.25s;
     }
 
-    #popupTitle {
-      margin-bottom: 10px;
-      color: #fff;
+    .floating-menu-link:hover {
+      background: rgba(99,102,241,0.18);
+      transform: translateX(-3px);
     }
 
-    #popupMessage {
-      color: #cbd5f5;
-      margin-bottom: 18px;
+    .floating-menu-btn {
+      width: 58px;
+      height: 58px;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      color: white;
+      font-size: 1.35rem;
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      box-shadow: 0 14px 30px rgba(59,130,246,0.35);
     }
 
     /* LIGHT THEME */
@@ -297,18 +321,19 @@
       color: #0f172a !important;
     }
 
-    body.light-theme #popupBox {
-      background: #ffffff;
-      color: #0f172a;
-      border: 1px solid rgba(15, 23, 42, 0.08);
+    body.light-theme .floating-menu-items {
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(15,23,42,0.08);
+      box-shadow: 0 18px 40px rgba(15,23,42,0.12);
     }
 
-    body.light-theme #popupTitle {
+    body.light-theme .floating-menu-link {
       color: #0f172a;
+      background: rgba(15,23,42,0.04);
     }
 
-    body.light-theme #popupMessage {
-      color: #334155;
+    body.light-theme .floating-menu-link:hover {
+      background: rgba(99,102,241,0.12);
     }
 
     @media (max-width: 768px) {
@@ -335,6 +360,11 @@
 
       #nameEmailGrid {
         grid-template-columns: 1fr !important;
+      }
+
+      .floating-menu {
+        right: 18px;
+        bottom: 18px;
       }
     }
   </style>
@@ -365,6 +395,7 @@
   </header>
 
   <section class="hero" id="home">
+    <p id="heroTag" style="letter-spacing:2px;text-transform:uppercase;font-size:.8rem;color:#93c5fd;margin-bottom:12px;">Technus Enterprise</p>
     <h1 id="heroTitle">Data-Driven Solutions for Smarter Business Decisions</h1>
     <p id="heroText">
       Transforming data into powerful digital solutions. We build cloud-ready systems, dashboards,
@@ -372,6 +403,7 @@
     </p>
     <a href="#contact" class="btn" id="heroBtn1">Get Started</a>
     <a href="#services" class="btn" id="heroBtn2" style="background:transparent;border:1px solid rgba(255,255,255,.25);">Learn More</a>
+    <div style="margin-top:28px;color:#93c5fd;font-size:1.2rem;">⌄</div>
   </section>
 
   <section id="about">
@@ -419,7 +451,7 @@
       </div>
       <div class="card">
         <div style="font-size:1.5rem;margin-bottom:12px;">🗄</div>
-        <h3 id="service2Title">Database as a Service (DaaS)</h3>
+        <h3 id="service2Title">Database as a Service</h3>
         <p id="service2Text">Managed database environments designed for reliability, performance, maintenance, and business continuity.</p>
       </div>
       <div class="card">
@@ -473,7 +505,11 @@
       <p class="section-text" id="contactText">Ready to start your next project? Reach out to us and we can help bring your ideas to life.</p>
 
       <div id="contactGrid" style="display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:start;">
-        <form id="contactForm" style="display:grid;gap:14px;">
+        <form
+          action="https://formspree.io/f/xrbqqyrr"
+          method="POST"
+          style="display:grid;gap:14px;"
+        >
           <input type="hidden" name="_subject" value="New message from Technus Solutions website">
 
           <div id="nameEmailGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
@@ -521,7 +557,7 @@
             Send Message
           </button>
 
-          <p class="form-note">Your message will be sent without leaving this page.</p>
+          <p class="form-note">After submission, Formspree will process and forward the message to your email.</p>
         </form>
 
         <div class="card">
@@ -555,13 +591,15 @@
     <p id="footerCopyright" style="margin-top:24px;">© 2026 Technus Solutions. All rights reserved.</p>
   </footer>
 
-  <div id="popupOverlay">
-    <div id="popupBox">
-      <div id="popupIcon" style="font-size:2rem;margin-bottom:12px;">✅</div>
-      <h3 id="popupTitle">Message Sent</h3>
-      <p id="popupMessage">Thank you. Your message has been submitted successfully.</p>
-      <button id="popupCloseBtn" class="btn" style="border:none;cursor:pointer;">Close</button>
+  <div class="floating-menu" id="floatingMenu">
+    <div class="floating-menu-items">
+      <a href="#home" class="floating-menu-link">Home</a>
+      <a href="#about" class="floating-menu-link">About</a>
+      <a href="#services" class="floating-menu-link">Services</a>
+      <a href="#projects" class="floating-menu-link">Projects</a>
+      <a href="#contact" class="floating-menu-link">Contact</a>
     </div>
+    <button class="floating-menu-btn" id="floatingMenuBtn" aria-label="Open navigation menu">☰</button>
   </div>
 
   <script>
@@ -625,13 +663,7 @@
         footerDesc: "Cloud data engineering, modern analytics, and digital solutions for smarter business operations.",
         footerQuickLinksTitle: "Quick Links",
         footerContactTitle: "Get In Touch",
-        footerCopyright: "© 2026 Technus Solutions. All rights reserved.",
-        popupSuccessTitle: "Message Sent",
-        popupSuccessMessage: "Thank you. Your message has been submitted successfully.",
-        popupErrorTitle: "Submission Failed",
-        popupErrorMessage: "Sorry, something went wrong. Please try again later.",
-        popupClose: "Close",
-        formNote: "Your message will be sent without leaving this page."
+        footerCopyright: "© 2026 Technus Solutions. All rights reserved."
       },
       ms: {
         navHome: "Utama",
@@ -692,17 +724,9 @@
         footerDesc: "Kejuruteraan data awan, analitik moden, dan penyelesaian digital untuk operasi perniagaan yang lebih bijak.",
         footerQuickLinksTitle: "Pautan Pantas",
         footerContactTitle: "Berhubung Dengan Kami",
-        footerCopyright: "© 2026 Technus Solutions. Hak cipta terpelihara.",
-        popupSuccessTitle: "Mesej Dihantar",
-        popupSuccessMessage: "Terima kasih. Mesej anda telah berjaya dihantar.",
-        popupErrorTitle: "Penghantaran Gagal",
-        popupErrorMessage: "Maaf, sesuatu telah berlaku. Sila cuba lagi kemudian.",
-        popupClose: "Tutup",
-        formNote: "Mesej anda akan dihantar tanpa meninggalkan halaman ini."
+        footerCopyright: "© 2026 Technus Solutions. Hak cipta terpelihara."
       }
     };
-
-    const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_REAL_FORMSPREE_ID";
 
     function applyLanguage(lang) {
       const t = translations[lang];
@@ -765,7 +789,6 @@
       document.getElementById("contactEmail").innerHTML = t.contactEmail;
       document.getElementById("contactPhone").innerHTML = t.contactPhone;
       document.getElementById("contactLocation").innerHTML = t.contactLocation;
-      document.querySelector(".form-note").textContent = t.formNote;
 
       document.getElementById("footerDesc").textContent = t.footerDesc;
       document.getElementById("footerQuickLinksTitle").textContent = t.footerQuickLinksTitle;
@@ -774,7 +797,13 @@
       document.getElementById("footerServices").textContent = t.navServices;
       document.getElementById("footerContactTitle").textContent = t.footerContactTitle;
       document.getElementById("footerCopyright").textContent = t.footerCopyright;
-      document.getElementById("popupCloseBtn").textContent = t.popupClose;
+
+      const floatingLinks = document.querySelectorAll(".floating-menu-link");
+      floatingLinks[0].textContent = t.navHome;
+      floatingLinks[1].textContent = t.navAbout;
+      floatingLinks[2].textContent = t.navServices;
+      floatingLinks[3].textContent = t.navProjects;
+      floatingLinks[4].textContent = t.navContact;
 
       localStorage.setItem("siteLanguage", lang);
     }
@@ -791,60 +820,20 @@
       localStorage.setItem("siteTheme", theme);
     }
 
-    function showPopup(type, title, message) {
-      const overlay = document.getElementById("popupOverlay");
-      const icon = document.getElementById("popupIcon");
-      const popupTitle = document.getElementById("popupTitle");
-      const popupMessage = document.getElementById("popupMessage");
+    const floatingMenu = document.getElementById("floatingMenu");
+    const floatingMenuBtn = document.getElementById("floatingMenuBtn");
+    const floatingLinks = document.querySelectorAll(".floating-menu-link");
 
-      icon.textContent = type === "success" ? "✅" : "⚠️";
-      popupTitle.textContent = title;
-      popupMessage.textContent = message;
-      overlay.style.display = "flex";
-    }
-
-    function closePopup() {
-      document.getElementById("popupOverlay").style.display = "none";
-    }
-
-    document.getElementById("popupCloseBtn").addEventListener("click", closePopup);
-    document.getElementById("popupOverlay").addEventListener("click", function (e) {
-      if (e.target.id === "popupOverlay") closePopup();
+    floatingMenuBtn.addEventListener("click", function () {
+      floatingMenu.classList.toggle("open");
+      floatingMenuBtn.textContent = floatingMenu.classList.contains("open") ? "✕" : "☰";
     });
 
-    document.getElementById("contactForm").addEventListener("submit", async function (e) {
-      e.preventDefault();
-
-      const lang = localStorage.getItem("siteLanguage") || "en";
-      const t = translations[lang];
-      const sendBtn = document.getElementById("sendBtn");
-      const form = e.target;
-      const formData = new FormData(form);
-
-      sendBtn.disabled = true;
-      sendBtn.textContent = lang === "ms" ? "Menghantar..." : "Sending...";
-
-      try {
-        const response = await fetch(FORMSPREE_ENDPOINT, {
-          method: "POST",
-          body: formData,
-          headers: {
-            "Accept": "application/json"
-          }
-        });
-
-        if (response.ok) {
-          form.reset();
-          showPopup("success", t.popupSuccessTitle, t.popupSuccessMessage);
-        } else {
-          showPopup("error", t.popupErrorTitle, t.popupErrorMessage);
-        }
-      } catch (error) {
-        showPopup("error", t.popupErrorTitle, t.popupErrorMessage);
-      } finally {
-        sendBtn.disabled = false;
-        sendBtn.textContent = t.sendBtn;
-      }
+    floatingLinks.forEach(link => {
+      link.addEventListener("click", function () {
+        floatingMenu.classList.remove("open");
+        floatingMenuBtn.textContent = "☰";
+      });
     });
 
     document.getElementById("langToggle").addEventListener("click", function () {
@@ -867,5 +856,3 @@
   </script>
 </body>
 </html>
-
-
