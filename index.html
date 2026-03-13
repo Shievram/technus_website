@@ -48,9 +48,11 @@
       width: 46px;
       height: 46px;
       object-fit: contain;
+      display: block;
       border-radius: 50%;
       background: rgba(255,255,255,0.04);
       box-shadow: 0 0 18px rgba(96,165,250,0.22);
+      flex-shrink: 0;
     }
 
     .logo {
@@ -265,10 +267,11 @@
       box-shadow: 0 18px 36px rgba(99,102,241,0.42);
     }
 
-    .floating-menu-btn img {
+    .menu-logo {
       width: 48px;
       height: 48px;
       object-fit: contain;
+      display: block;
       animation: logoSpin 8s linear infinite;
     }
 
@@ -435,7 +438,7 @@
         width: 64px;
         height: 64px;
       }
-      .floating-menu-btn img {
+      .menu-logo {
         width: 42px;
         height: 42px;
       }
@@ -446,7 +449,7 @@
   <header>
     <nav>
       <div class="brand-wrap">
-        <img src="logo.png" alt="Technus Solutions Logo" class="brand-logo">
+        <img src="logo.png" alt="Technus Solutions Logo" class="brand-logo" onerror="this.style.display='none'">
         <span class="logo">Technus Solutions</span>
       </div>
 
@@ -467,6 +470,7 @@
   </header>
 
   <section class="hero" id="home">
+    <p id="heroTag" style="letter-spacing:2px;text-transform:uppercase;font-size:.8rem;color:#93c5fd;margin-bottom:12px;">Technus Enterprise</p>
     <h1>Innovative Data & Software Solutions</h1>
     <p>
       Transforming data into powerful digital solutions. We build cloud-ready systems, dashboards,
@@ -636,7 +640,9 @@
       <a href="#projects" class="floating-menu-link">Projects</a>
       <a href="#contact" class="floating-menu-link">Contact</a>
     </div>
-    <button class="floating-menu-btn" id="floatingMenuBtn" aria-label="Open navigation menu">☰</button>
+    <button class="floating-menu-btn" id="floatingMenuBtn" aria-label="Open navigation menu">
+      <img src="logo.png" alt="Menu Logo" class="menu-logo" onerror="this.style.display='none'">
+    </button>
   </div>
 
   <script>
@@ -653,6 +659,7 @@
         langBtn: 'BM',
         themeLight: '☀ Light',
         themeDark: '🌙 Dark',
+        heroTag: 'Technus Enterprise',
         heroTitle: 'Innovative Data & Software Solutions',
         heroText: 'Transforming data into powerful digital solutions. We build cloud-ready systems, dashboards, analytics workflows, and scalable platforms that help businesses work smarter.',
         heroBtn1: 'Get Started',
@@ -720,6 +727,7 @@
         langBtn: 'EN',
         themeLight: '☀ Cerah',
         themeDark: '🌙 Gelap',
+        heroTag: 'Technus Enterprise',
         heroTitle: 'Penyelesaian Data & Perisian Inovatif',
         heroText: 'Menukarkan data kepada penyelesaian digital yang berkuasa. Kami membina sistem sedia awan, papan pemuka, aliran kerja analitik, dan platform berskala yang membantu perniagaan beroperasi dengan lebih bijak.',
         heroBtn1: 'Mulakan',
@@ -854,8 +862,6 @@
       floatingLinks[3].textContent = t.navProjects;
       floatingLinks[4].textContent = t.navContact;
 
-      document.getElementById('popupTitle').textContent = t.popupSuccessTitle;
-      document.getElementById('popupMessage').textContent = t.popupSuccessMessage;
       document.getElementById('popupCloseBtn').textContent = t.popupClose;
 
       localStorage.setItem('siteLanguage', lang);
@@ -951,4 +957,3 @@
   </script>
 </body>
 </html>
-
