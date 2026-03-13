@@ -17,6 +17,14 @@
       color: #e5e7eb;
       line-height: 1.6;
       transition: background 0.3s ease, color 0.3s ease;
+      scroll-behavior: smooth;
+    }
+
+    section {
+     max-width: 1200px;
+     margin: auto;
+     padding: 90px 20px;
+     scroll-margin-top: 100px;
     }
 
     header {
@@ -949,10 +957,29 @@
       applyTheme(next);
     });
 
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', function (e) {
+    const targetId = this.getAttribute('href');
+    const target = document.querySelector(targetId);
+
+    if (target) {
+      e.preventDefault();
+
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+
+      floatingMenu.classList.remove('open');
+    }
+  });
+});
+    
     applyLanguage(localStorage.getItem('siteLanguage') || 'en');
     applyTheme(localStorage.getItem('siteTheme') || 'dark');
   </script>
 </body>
 </html>
+
 
 
