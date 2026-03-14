@@ -490,18 +490,16 @@
         width: 42px;
         height: 42px;
       }
-      .simple-icon {
-  width: 72px;
-  height: 72px;
+      .icon-chip {
+  width: 74px;
+  height: 74px;
   margin: 0 auto 18px;
-  border-radius: 20px;
+  border-radius: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.45rem;
-  font-weight: 800;
-  color: #ffffff;
-  letter-spacing: 0.5px;
+  font-size: 2rem;
+  line-height: 1;
   border: 1px solid rgba(255,255,255,0.08);
   box-shadow:
     0 14px 30px rgba(0,0,0,0.20),
@@ -509,7 +507,7 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card:hover .simple-icon {
+.card:hover .icon-chip {
   transform: translateY(-4px) scale(1.05);
   box-shadow:
     0 18px 36px rgba(99,102,241,0.22),
@@ -517,24 +515,18 @@
 }
 
 .icon-mission { background: linear-gradient(135deg, #f59e0b, #f97316); }
-.icon-vision  { background: linear-gradient(135deg, #ec4899, #8b5cf6); }
-.icon-growth  { background: linear-gradient(135deg, #10b981, #3b82f6); }
+.icon-vision { background: linear-gradient(135deg, #ec4899, #8b5cf6); }
+.icon-growth { background: linear-gradient(135deg, #10b981, #3b82f6); }
 
-.icon-cloud       { background: linear-gradient(135deg, #0ea5e9, #3b82f6); }
-.icon-db          { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
-.icon-report      { background: linear-gradient(135deg, #06b6d4, #2563eb); }
-.icon-analytics   { background: linear-gradient(135deg, #ec4899, #7c3aed); }
+.icon-cloud { background: linear-gradient(135deg, #0ea5e9, #3b82f6); }
+.icon-db { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+.icon-report { background: linear-gradient(135deg, #06b6d4, #2563eb); }
+.icon-analytics { background: linear-gradient(135deg, #ec4899, #7c3aed); }
 .icon-integration { background: linear-gradient(135deg, #14b8a6, #2563eb); }
-.icon-support     { background: linear-gradient(135deg, #f59e0b, #ea580c); }
+.icon-support { background: linear-gradient(135deg, #f59e0b, #ea580c); }
 
 .icon-project-a { background: linear-gradient(135deg, #3b82f6, #6366f1); }
 .icon-project-b { background: linear-gradient(135deg, #64748b, #334155); }
-
-body.light-theme .simple-icon {
-  box-shadow:
-    0 14px 28px rgba(15,23,42,0.10),
-    inset 0 1px 0 rgba(255,255,255,0.22);
-}
   </style>
 </head>
 <body>
