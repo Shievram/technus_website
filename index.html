@@ -534,7 +534,32 @@
 
     .icon-project-a { background: linear-gradient(135deg, #3b82f6, #6366f1); }
     .icon-project-b { background: linear-gradient(135deg, #64748b, #334155); }
-  </style>
+  
+        .back-to-top-wrapper {
+            text-align: center;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .back-to-top {
+            display: inline-block;
+            padding: 0.75rem 1.25rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 600;
+            color: #ffffff;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(37, 99, 235, 0.35);
+            opacity: 0.95;
+        }
+
+    </style>
 </head>
 <body>
   <header>
@@ -719,7 +744,10 @@
       </div>
     </div>
     <p style="margin-top:24px;">© 2026 Technus Solutions. All rights reserved.</p>
-  </footer>
+      <div class="back-to-top-wrapper">
+        <a href="#home" class="back-to-top">↑ Back to Top</a>
+    </div>
+</footer>
 
   <div id="popupOverlay">
     <div id="popupBox">
@@ -1084,5 +1112,23 @@
     applyLanguage(localStorage.getItem('siteLanguage') || 'en');
     applyTheme(localStorage.getItem('siteTheme') || 'dark');
   </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+                anchor.addEventListener('click', function (e) {
+                    const targetId = this.getAttribute('href');
+                    if (!targetId || targetId === '#') return;
+
+                    const target = document.querySelector(targetId);
+                    if (!target) return;
+
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            });
+        });
+    </script>
+
 </body>
 </html>
