@@ -1102,6 +1102,155 @@
       }
     }
 
+
+    /* Keep Services and Projects at their previous normal width */
+    #services,
+    .services,
+    #projects,
+    .projects {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      box-sizing: border-box !important;
+    }
+
+    #services .container,
+    .services .container,
+    #projects .container,
+    .projects .container,
+    #services .section-container,
+    .services .section-container,
+    #projects .section-container,
+    .projects .section-container,
+    #services .grid,
+    .services .grid,
+    #projects .grid,
+    .projects .grid {
+      width: min(1200px, 92vw) !important;
+      max-width: 1200px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      box-sizing: border-box !important;
+    }
+
+    @media (max-width: 1024px) {
+      #services .container,
+      .services .container,
+      #projects .container,
+      .projects .container,
+      #services .section-container,
+      .services .section-container,
+      #projects .section-container,
+      .projects .section-container,
+      #services .grid,
+      .services .grid,
+      #projects .grid,
+      .projects .grid {
+        width: min(94vw, 100%) !important;
+        max-width: 94vw !important;
+      }
+    }
+
+
+    /* Reduce Services and Projects tile size */
+    #services .card,
+    .services .card,
+    #services .service-card,
+    .services .service-card,
+    #projects .card,
+    .projects .card,
+    #projects .project-card,
+    .projects .project-card {
+      padding: 26px 22px !important;
+      border-radius: 20px !important;
+      min-height: 0 !important;
+    }
+
+    #services .card h3,
+    .services .card h3,
+    #services .service-card h3,
+    .services .service-card h3,
+    #projects .card h3,
+    .projects .card h3,
+    #projects .project-card h3,
+    .projects .project-card h3 {
+      font-size: 0.95rem !important;
+      margin-top: 14px !important;
+      margin-bottom: 10px !important;
+      line-height: 1.35 !important;
+    }
+
+    #services .card p,
+    .services .card p,
+    #services .service-card p,
+    .services .service-card p,
+    #projects .card p,
+    .projects .card p,
+    #projects .project-card p,
+    .projects .project-card p {
+      font-size: 0.9rem !important;
+      line-height: 1.65 !important;
+      margin-bottom: 0 !important;
+    }
+
+    #services .card .simple-icon,
+    .services .card .simple-icon,
+    #services .service-card .simple-icon,
+    .services .service-card .simple-icon,
+    #projects .card .simple-icon,
+    .projects .card .simple-icon,
+    #projects .project-card .simple-icon,
+    .projects .project-card .simple-icon {
+      width: 74px !important;
+      height: 74px !important;
+      margin-bottom: 8px !important;
+      border-radius: 22px !important;
+    }
+
+    #services .card .simple-icon svg,
+    .services .card .simple-icon svg,
+    #services .service-card .simple-icon svg,
+    .services .service-card .simple-icon svg,
+    #projects .card .simple-icon svg,
+    .projects .card .simple-icon svg,
+    #projects .project-card .simple-icon svg,
+    .projects .project-card .simple-icon svg {
+      width: 30px !important;
+      height: 30px !important;
+    }
+
+    #services .grid,
+    .services .grid,
+    #services .services-grid,
+    .services .services-grid {
+      gap: 18px !important;
+    }
+
+    #projects .grid,
+    .projects .grid,
+    #projects .projects-grid,
+    .projects .projects-grid {
+      gap: 18px !important;
+    }
+
+    @media (min-width: 1025px) {
+      #services .card,
+      .services .card,
+      #services .service-card,
+      .services .service-card {
+        min-height: 290px !important;
+      }
+
+      #projects .card,
+      .projects .card,
+      #projects .project-card,
+      .projects .project-card {
+        min-height: 240px !important;
+      }
+    }
+
 </style>
 </head>
 <body>
