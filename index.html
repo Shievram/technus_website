@@ -13,7 +13,7 @@
     }
 
     html, body {
-      scroll-behavior: smooth;
+      scroll-behavior: auto;
     }
 
     body {
@@ -1129,6 +1129,7 @@
 
 
 
+
 <script>
 (function () {
   function easeInOutCubic(t) {
@@ -1148,19 +1149,21 @@
       const progress = Math.min(elapsed / duration, 1);
       const eased = easeInOutCubic(progress);
       window.scrollTo(0, startY + distance * eased);
-      if (progress < 1) {
-        requestAnimationFrame(frame);
-      }
+      if (progress < 1) requestAnimationFrame(frame);
     }
 
     requestAnimationFrame(frame);
   }
 
-  function getTargetTop(el) {
-    const header = document.querySelector('header');
-    const headerOffset = header ? header.offsetHeight + 10 : 0;
-    const rectTop = el.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop || 0);
-    return Math.max(rectTop - headerOffset, 0);
+  function getHeaderOffset() {
+    const header = document.querySelector('header, .header, nav');
+    return header ? header.offsetHeight + 10 : 0;
+  }
+
+  function getTargetY(target) {
+    const rect = target.getBoundingClientRect();
+    const absoluteTop = rect.top + (window.pageYOffset || document.documentElement.scrollTop || 0);
+    return Math.max(absoluteTop - getHeaderOffset(), 0);
   }
 
   document.addEventListener('click', function (e) {
@@ -1179,14 +1182,24 @@
       e.stopImmediatePropagation();
     }
 
-    animateScrollTo(getTargetTop(target), 900);
+    const targetY = getTargetY(target);
+    animateScrollTo(targetY, 700);
 
-    if (history.pushState) {
-      history.pushState(null, '', href);
-    } else {
-      location.hash = href;
+    // Update the URL hash without triggering another jump
+    if (history.replaceState) {
+      history.replaceState(null, '', href);
     }
   }, true);
+
+  // Prevent browser auto-jump on initial load with hash
+  window.addEventListener('load', function () {
+    if (window.location.hash) {
+      const target = document.querySelector(window.location.hash);
+      if (target) {
+        window.scrollTo(0, getTargetY(target));
+      }
+    }
+  });
 })();
 </script>
 
