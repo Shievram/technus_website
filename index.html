@@ -131,9 +131,10 @@
     }
 
     section {
-      max-width: 1200px;
-      margin: auto;
-      padding: 90px 20px;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 90px 0;
       scroll-margin-top: 100px;
     }
 
@@ -965,6 +966,63 @@
         width: 100vw !important;
         max-width: 100vw !important;
         border-radius: 0 !important;
+      }
+    }
+
+
+    /* Final full-width layout fix */
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow-x: hidden !important;
+    }
+
+    section,
+    #home,
+    #about {
+      width: 100% !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      box-sizing: border-box !important;
+    }
+
+    .hero,
+    #about,
+    .about {
+      width: 100% !important;
+      max-width: none !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      box-sizing: border-box !important;
+    }
+
+    .hero {
+      border-radius: 0 !important;
+      padding-left: 32px !important;
+      padding-right: 32px !important;
+    }
+
+    .about {
+      border-radius: 0 !important;
+      padding-left: 32px !important;
+      padding-right: 32px !important;
+      padding-top: 46px !important;
+      padding-bottom: 42px !important;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding-left: 18px !important;
+        padding-right: 18px !important;
+      }
+
+      .about {
+        padding-left: 18px !important;
+        padding-right: 18px !important;
       }
     }
 
