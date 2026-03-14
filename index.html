@@ -1128,61 +1128,66 @@
   
 
 
+
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  function smoothScrollTo(targetY, duration) {
-    const startY = window.pageYOffset || document.documentElement.scrollTop;
+(function () {
+  function easeInOutCubic(t) {
+    return t < 0.5
+      ? 4 * t * t * t
+      : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function animateScrollTo(targetY, duration) {
+    const startY = window.pageYOffset || document.documentElement.scrollTop || 0;
     const distance = targetY - startY;
     let startTime = null;
 
-    function easeInOutCubic(t) {
-      return t < 0.5
-        ? 4 * t * t * t
-        : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    }
-
-    function step(timestamp) {
-      if (!startTime) startTime = timestamp;
-      const elapsed = timestamp - startTime;
+    function frame(now) {
+      if (startTime === null) startTime = now;
+      const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
       const eased = easeInOutCubic(progress);
-
       window.scrollTo(0, startY + distance * eased);
-
       if (progress < 1) {
-        window.requestAnimationFrame(step);
+        requestAnimationFrame(frame);
       }
     }
 
-    window.requestAnimationFrame(step);
+    requestAnimationFrame(frame);
   }
 
-  function getHeaderOffset() {
+  function getTargetTop(el) {
     const header = document.querySelector('header');
-    return header ? header.offsetHeight + 12 : 0;
+    const headerOffset = header ? header.offsetHeight + 10 : 0;
+    const rectTop = el.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop || 0);
+    return Math.max(rectTop - headerOffset, 0);
   }
 
-  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
-    link.addEventListener('click', function (e) {
-      const href = this.getAttribute('href');
-      if (!href || href === '#') return;
+  document.addEventListener('click', function (e) {
+    const link = e.target.closest('a[href^="#"]');
+    if (!link) return;
 
-      const target = document.querySelector(href);
-      if (!target) return;
+    const href = link.getAttribute('href');
+    if (!href || href === '#') return;
 
-      e.preventDefault();
+    const target = document.querySelector(href);
+    if (!target) return;
 
-      const targetTop = target.getBoundingClientRect().top + window.pageYOffset - getHeaderOffset();
-      smoothScrollTo(targetTop, 700);
+    e.preventDefault();
+    e.stopPropagation();
+    if (typeof e.stopImmediatePropagation === 'function') {
+      e.stopImmediatePropagation();
+    }
 
-      if (history.pushState) {
-        history.pushState(null, '', href);
-      } else {
-        location.hash = href;
-      }
-    });
-  });
-});
+    animateScrollTo(getTargetTop(target), 900);
+
+    if (history.pushState) {
+      history.pushState(null, '', href);
+    } else {
+      location.hash = href;
+    }
+  }, true);
+})();
 </script>
 
 </body>
