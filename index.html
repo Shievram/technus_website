@@ -12,12 +12,15 @@
       font-family: Inter, Arial, sans-serif;
     }
 
+    html, body {
+      scroll-behavior: smooth;
+    }
+
     body {
       background: #0b1120;
       color: #e5e7eb;
       line-height: 1.6;
       transition: background 0.3s ease, color 0.3s ease;
-      scroll-behavior: smooth;
     }
 
     header {
@@ -536,22 +539,27 @@
     .icon-project-b { background: linear-gradient(135deg, #64748b, #334155); }
   
         .back-to-top-wrapper {
-            text-align: center;
-            margin-top: 1.5rem;
-            margin-bottom: 0.75rem;
-        }
+      text-align: center;
+      margin-top: 24px;
+      margin-bottom: 8px;
+    }
 
         .back-to-top {
-            display: inline-block;
-            padding: 0.75rem 1.25rem;
-            border-radius: 999px;
-            text-decoration: none;
-            font-weight: 600;
-            color: #ffffff;
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
-        }
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #ffffff !important;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    }
 
         .back-to-top:hover {
             transform: translateY(-2px);
@@ -736,6 +744,8 @@
         <p><a href="#home" style="color:#94a3b8;text-decoration:none;">Home</a></p>
         <p><a href="#about" style="color:#94a3b8;text-decoration:none;">About</a></p>
         <p><a href="#services" style="color:#94a3b8;text-decoration:none;">Services</a></p>
+        <p><a href="#projects" style="color:#94a3b8;text-decoration:none;">Projects</a></p>
+        <p><a href="#contact" style="color:#94a3b8;text-decoration:none;">Contact</a></p>
       </div>
       <div>
         <p style="font-weight:700;color:#fff;margin-bottom:10px;">Get In Touch</p>
@@ -975,11 +985,16 @@
       const footerCols = document.querySelectorAll('footer > div > div');
       footerCols[0].querySelectorAll('p')[1].textContent = t.footerDesc;
       footerCols[1].querySelectorAll('p')[0].textContent = t.footerQuickLinks;
-      footerCols[1].querySelectorAll('a')[0].textContent = t.navHome;
-      footerCols[1].querySelectorAll('a')[1].textContent = t.navAbout;
-      footerCols[1].querySelectorAll('a')[2].textContent = t.navServices;
+      const footerLinks = footerCols[1].querySelectorAll('a');
+      footerLinks[0].textContent = t.navHome;
+      footerLinks[1].textContent = t.navAbout;
+      footerLinks[2].textContent = t.navServices;
+      footerLinks[3].textContent = t.navProjects;
+      footerLinks[4].textContent = t.navContact;
       footerCols[2].querySelectorAll('p')[0].textContent = t.footerContact;
       document.querySelector('footer > p').textContent = t.footerCopyright;
+      const backToTop = document.querySelector('.back-to-top');
+      if (backToTop) backToTop.textContent = language === 'bm' ? '↑ Kembali ke Atas' : '↑ Back to Top';
 
       const floatingLinks = document.querySelectorAll('.floating-menu-link');
       floatingLinks[0].textContent = t.navHome;
@@ -1112,23 +1127,5 @@
     applyLanguage(localStorage.getItem('siteLanguage') || 'en');
     applyTheme(localStorage.getItem('siteTheme') || 'dark');
   </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-                anchor.addEventListener('click', function (e) {
-                    const targetId = this.getAttribute('href');
-                    if (!targetId || targetId === '#') return;
-
-                    const target = document.querySelector(targetId);
-                    if (!target) return;
-
-                    e.preventDefault();
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                });
-            });
-        });
-    </script>
-
 </body>
 </html>
