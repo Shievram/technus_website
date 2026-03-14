@@ -841,6 +841,7 @@
     function applyLanguage(lang) {
       const t = translations[lang];
       document.title = t.title;
+
       document.getElementById('nav-home').textContent = t.navHome;
       document.getElementById('nav-about').textContent = t.navAbout;
       document.getElementById('nav-services').textContent = t.navServices;
@@ -848,7 +849,90 @@
       document.getElementById('nav-contact').textContent = t.navContact;
       document.getElementById('langToggle').textContent = t.langBtn;
 
-      document.getElementById('heroTag').textContent = t.heroTag;
+      const heroTag = document.getElementById('heroTag');
+      if (heroTag) heroTag.textContent = t.heroTag;
+
+      document.querySelector('#home h1').textContent = t.heroTitle;
+      document.querySelector('#home h1 + p').textContent = t.heroText;
+      document.querySelectorAll('#home .btn')[0].textContent = t.heroBtn1;
+      document.querySelectorAll('#home .btn')[1].textContent = t.heroBtn2;
+
+      document.querySelector('#about .about > p').textContent = t.aboutTag;
+      document.querySelector('#about h2').textContent = t.aboutTitle;
+      document.querySelector('#about .section-text').textContent = t.aboutText;
+      document.querySelectorAll('#about .card h3')[0].textContent = t.missionTitle;
+      document.querySelectorAll('#about .card p')[0].textContent = t.missionText;
+      document.querySelectorAll('#about .card h3')[1].textContent = t.visionTitle;
+      document.querySelectorAll('#about .card p')[1].textContent = t.visionText;
+      document.querySelectorAll('#about .card h3')[2].textContent = t.growthTitle;
+      document.querySelectorAll('#about .card p')[2].textContent = t.growthText;
+
+      document.querySelector('#services > p').textContent = t.servicesTag;
+      document.querySelector('#services h2').textContent = t.servicesTitle;
+      document.querySelector('#services .section-text').textContent = t.servicesText;
+
+      const serviceTitles = document.querySelectorAll('#services .card h3');
+      const serviceTexts = document.querySelectorAll('#services .card p');
+      serviceTitles[0].textContent = t.service1Title; serviceTexts[0].textContent = t.service1Text;
+      serviceTitles[1].textContent = t.service2Title; serviceTexts[1].textContent = t.service2Text;
+      serviceTitles[2].textContent = t.service3Title; serviceTexts[2].textContent = t.service3Text;
+      serviceTitles[3].textContent = t.service4Title; serviceTexts[3].textContent = t.service4Text;
+      serviceTitles[4].textContent = t.service5Title; serviceTexts[4].textContent = t.service5Text;
+      serviceTitles[5].textContent = t.service6Title; serviceTexts[5].textContent = t.service6Text;
+
+      document.querySelector('#projects > p').textContent = t.projectsTag;
+      document.querySelector('#projects h2').textContent = t.projectsTitle;
+      document.querySelectorAll('#projects .card h3')[0].textContent = t.project1Title;
+      document.querySelectorAll('#projects .card p')[0].textContent = t.project1Text;
+      document.querySelectorAll('#projects .card h3')[1].textContent = t.project2Title;
+      document.querySelectorAll('#projects .card p')[1].textContent = t.project2Text;
+
+      document.querySelector('#contact .contact > p').textContent = t.contactTag;
+      document.querySelector('#contact h2').textContent = t.contactTitle;
+      document.querySelector('#contact .section-text').textContent = t.contactText;
+      document.getElementById('nameInput').placeholder = t.namePlaceholder;
+      document.getElementById('emailInput').placeholder = t.emailPlaceholder;
+      document.getElementById('subjectInput').placeholder = t.subjectPlaceholder;
+      document.getElementById('messageInput').placeholder = t.messagePlaceholder;
+      document.getElementById('sendBtn').textContent = t.sendBtn;
+
+      const contactCard = document.querySelector('#contact .card');
+      contactCard.querySelector('h3').textContent = t.detailsTitle;
+      contactCard.querySelectorAll('p')[0].innerHTML = t.detailsEmail;
+      contactCard.querySelectorAll('p')[1].innerHTML = t.detailsPhone;
+      contactCard.querySelectorAll('p')[2].innerHTML = t.detailsLocation;
+
+      const footerCols = document.querySelectorAll('footer > div > div');
+      footerCols[0].querySelectorAll('p')[1].textContent = t.footerDesc;
+      footerCols[1].querySelectorAll('p')[0].textContent = t.footerQuickLinks;
+      footerCols[1].querySelectorAll('a')[0].textContent = t.navHome;
+      footerCols[1].querySelectorAll('a')[1].textContent = t.navAbout;
+      footerCols[1].querySelectorAll('a')[2].textContent = t.navServices;
+      footerCols[2].querySelectorAll('p')[0].textContent = t.footerContact;
+      document.querySelector('footer > p').textContent = t.footerCopyright;
+
+      const floatingLinks = document.querySelectorAll('.floating-menu-link');
+      floatingLinks[0].textContent = t.navHome;
+      floatingLinks[1].textContent = t.navAbout;
+      floatingLinks[2].textContent = t.navServices;
+      floatingLinks[3].textContent = t.navProjects;
+      floatingLinks[4].textContent = t.navContact;
+
+      document.getElementById('popupCloseBtn').textContent = t.popupClose;
+
+      localStorage.setItem('siteLanguage', lang);
+    }
+
+      <section class="hero" id="home">
+        <p id="heroTag" style="letter-spacing:2px;text-transform:uppercase;font-size:.8rem;color:#93c5fd;margin-bottom:12px;">Technus Enterprise</p>
+        <h1>Innovative Data & Software Solutions</h1>
+        <p>
+          Transforming data into powerful digital solutions. We build cloud-ready systems, dashboards,
+          analytics workflows, and scalable platforms that help businesses work smarter.
+       </p>
+       <a href="#contact" class="btn">Get Started</a>
+       <a href="#services" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,.25);">Learn More</a>
+    </section>
       document.querySelector('#home h1').textContent = t.heroTitle;
       document.querySelector('#home h1 + p').textContent = t.heroText;
       document.querySelector('#home .btn').textContent = t.heroBtn1;
@@ -1017,21 +1101,20 @@
     });
 
     document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', function (e) {
-    const targetId = this.getAttribute('href');
-    const target = document.querySelector(targetId);
+      link.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href');
+        const target = document.querySelector(targetId);
 
-    if (target) {
-      e.preventDefault();
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+    });
 
-      target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-
-      floatingMenu.classList.remove('open');
-    }
-  });
+    floatingMenu.classList.remove('open');
+  }
+ });
 });
     
     applyLanguage(localStorage.getItem('siteLanguage') || 'en');
