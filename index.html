@@ -618,6 +618,35 @@
       box-shadow: 0 14px 30px rgba(15, 118, 110, 0.16);
     }
 
+
+    .hero-secondary-btn {
+      background: rgba(255, 255, 255, 0.12) !important;
+      color: #ffffff !important;
+      border: 1px solid rgba(255, 255, 255, 0.38) !important;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+    }
+
+    .hero-secondary-btn:hover {
+      background: rgba(255, 255, 255, 0.18) !important;
+      border-color: rgba(255, 255, 255, 0.55) !important;
+      color: #ffffff !important;
+    }
+
+    body.light-theme .hero-secondary-btn {
+      background: rgba(255, 255, 255, 0.92) !important;
+      color: #0f766e !important;
+      border: 1px solid rgba(15, 118, 110, 0.24) !important;
+      box-shadow: 0 12px 28px rgba(15, 118, 110, 0.12);
+    }
+
+    body.light-theme .hero-secondary-btn:hover {
+      background: #ffffff !important;
+      color: #115e59 !important;
+      border-color: rgba(15, 118, 110, 0.34) !important;
+      box-shadow: 0 16px 34px rgba(15, 118, 110, 0.16);
+    }
+
 </style>
 </head>
 <body>
@@ -651,7 +680,7 @@
       analytics workflows, and scalable platforms that help businesses work smarter.
     </p>
     <a href="#contact" class="btn">Get Started</a>
-    <a href="#services" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,.25);">Learn More</a>
+    <a href="#services" class="btn hero-secondary-btn">Learn More</a>
   </section>
 
   <section id="about">
