@@ -1102,6 +1102,57 @@
       }
     }
 
+
+    /* Keep Services and Projects at their previous normal width */
+    #services,
+    .services,
+    #projects,
+    .projects {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      box-sizing: border-box !important;
+    }
+
+    #services .container,
+    .services .container,
+    #projects .container,
+    .projects .container,
+    #services .section-container,
+    .services .section-container,
+    #projects .section-container,
+    .projects .section-container,
+    #services .grid,
+    .services .grid,
+    #projects .grid,
+    .projects .grid {
+      width: min(1200px, 92vw) !important;
+      max-width: 1200px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      box-sizing: border-box !important;
+    }
+
+    @media (max-width: 1024px) {
+      #services .container,
+      .services .container,
+      #projects .container,
+      .projects .container,
+      #services .section-container,
+      .services .section-container,
+      #projects .section-container,
+      .projects .section-container,
+      #services .grid,
+      .services .grid,
+      #projects .grid,
+      .projects .grid {
+        width: min(94vw, 100%) !important;
+        max-width: 94vw !important;
+      }
+    }
+
 </style>
 </head>
 <body>
