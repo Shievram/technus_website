@@ -490,43 +490,50 @@
         width: 42px;
         height: 42px;
       }
-      .icon-chip {
-  width: 74px;
-  height: 74px;
-  margin: 0 auto 18px;
-  border-radius: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  line-height: 1;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow:
-    0 14px 30px rgba(0,0,0,0.20),
-    inset 0 1px 0 rgba(255,255,255,0.10);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+    }
 
-.card:hover .icon-chip {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow:
-    0 18px 36px rgba(99,102,241,0.22),
-    inset 0 1px 0 rgba(255,255,255,0.14);
-}
+    .icon-chip {
+      width: 74px;
+      height: 74px;
+      margin: 0 auto 18px;
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow:
+        0 14px 30px rgba(0,0,0,0.20),
+        inset 0 1px 0 rgba(255,255,255,0.10);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-.icon-mission { background: linear-gradient(135deg, #f59e0b, #f97316); }
-.icon-vision { background: linear-gradient(135deg, #ec4899, #8b5cf6); }
-.icon-growth { background: linear-gradient(135deg, #10b981, #3b82f6); }
+    .icon-chip svg {
+      width: 34px;
+      height: 34px;
+      display: block;
+    }
 
-.icon-cloud { background: linear-gradient(135deg, #0ea5e9, #3b82f6); }
-.icon-db { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
-.icon-report { background: linear-gradient(135deg, #06b6d4, #2563eb); }
-.icon-analytics { background: linear-gradient(135deg, #ec4899, #7c3aed); }
-.icon-integration { background: linear-gradient(135deg, #14b8a6, #2563eb); }
-.icon-support { background: linear-gradient(135deg, #f59e0b, #ea580c); }
+    .card:hover .icon-chip {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow:
+        0 18px 36px rgba(99,102,241,0.22),
+        inset 0 1px 0 rgba(255,255,255,0.14);
+    }
 
-.icon-project-a { background: linear-gradient(135deg, #3b82f6, #6366f1); }
-.icon-project-b { background: linear-gradient(135deg, #64748b, #334155); }
+    .icon-mission { background: linear-gradient(135deg, #f59e0b, #f97316); }
+    .icon-vision { background: linear-gradient(135deg, #ec4899, #8b5cf6); }
+    .icon-growth { background: linear-gradient(135deg, #10b981, #3b82f6); }
+
+    .icon-cloud { background: linear-gradient(135deg, #0ea5e9, #3b82f6); }
+    .icon-db { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+    .icon-report { background: linear-gradient(135deg, #06b6d4, #2563eb); }
+    .icon-analytics { background: linear-gradient(135deg, #ec4899, #7c3aed); }
+    .icon-integration { background: linear-gradient(135deg, #14b8a6, #2563eb); }
+    .icon-support { background: linear-gradient(135deg, #f59e0b, #ea580c); }
+
+    .icon-project-a { background: linear-gradient(135deg, #3b82f6, #6366f1); }
+    .icon-project-b { background: linear-gradient(135deg, #64748b, #334155); }
   </style>
 </head>
 <body>
@@ -575,19 +582,19 @@
 
       <div class="services-grid" style="margin-top:20px;">
   <div class="card" style="text-align:center;">
-    <div class="simple-icon icon-mission">M</div>
+    <div class="icon-chip icon-mission" aria-hidden="true"><svg viewBox="0 0 24 24" role="img"><path fill="#ffffff" d="M12 2l2.35 4.76 5.25.76-3.8 3.7.9 5.23L12 14l-4.7 2.47.9-5.23-3.8-3.7 5.25-.76L12 2z"/></svg></div>
     <h3>Our Mission</h3>
     <p>To provide innovative solutions that empower businesses with modern technology, reliable systems, and actionable insights.</p>
   </div>
 
   <div class="card" style="text-align:center;">
-    <div class="simple-icon icon-vision">V</div>
+    <div class="icon-chip icon-vision" aria-hidden="true"><svg viewBox="0 0 24 24" role="img"><path fill="#ffffff" d="M12 5c-5.5 0-9.5 5.4-10 6 .5.6 4.5 6 10 6s9.5-5.4 10-6c-.5-.6-4.5-6-10-6zm0 9a3 3 0 110-6 3 3 0 010 6z"/><circle cx="12" cy="11" r="1.6" fill="#fdf2f8"/></svg></div>
     <h3>Our Vision</h3>
     <p>To be a trusted technology partner recognized for excellence, creativity, and data-driven transformation.</p>
   </div>
 
   <div class="card" style="text-align:center;">
-    <div class="simple-icon icon-growth">G</div>
+    <div class="icon-chip icon-growth" aria-hidden="true"><svg viewBox="0 0 24 24" role="img"><path fill="#ffffff" d="M5 17h14v2H3V5h2v12zm3-2.5l3.5-3.5 2.5 2.5 4.5-5V12h2V5h-7v2h3.2l-3.8 4.2-2.4-2.4L6.6 12.1 8 14.5z"/></svg></div>
     <h3>Growth</h3>
     <p>Continuously evolving and expanding our capabilities to serve our clients better.</p>
   </div>
@@ -603,37 +610,37 @@
 
   <div class="services-grid">
   <div class="card">
-    <div class="simple-icon icon-cloud">C</div>
+    <div class="icon-chip icon-cloud" aria-hidden="true"><svg viewBox="0 0 24 24" role="img"><path fill="#ffffff" d="M18 18H7a4 4 0 010-8 5.5 5.5 0 0110.6-1.9A4.5 4.5 0 1118 18z"/></svg></div>
     <h3>Cloud Solutions</h3>
     <p>Scalable cloud infrastructure for data storage, integration, application deployment, and secure operations.</p>
   </div>
 
   <div class="card">
-    <div class="simple-icon icon-db">DB</div>
+    <div class="icon-chip icon-db" aria-hidden="true"><svg viewBox="0 0 24 24" role="img"><ellipse cx="12" cy="6" rx="6.5" ry="3.5" fill="#ffffff"/><path fill="#ffffff" d="M5.5 6v4c0 1.9 2.9 3.5 6.5 3.5s6.5-1.6 6.5-3.5V6c0 1.9-2.9 3.5-6.5 3.5S5.5 7.9 5.5 6zm0 6v4c0 1.9 2.9 3.5 6.5 3.5s6.5-1.6 6.5-3.5v-4c0 1.9-2.9 3.5-6.5 3.5s-6.5-1.6-6.5-3.5z"/></svg></div>
     <h3>Database as a Service</h3>
     <p>Managed database environments designed for reliability, performance, maintenance, and business continuity.</p>
   </div>
 
   <div class="card">
-    <div class="simple-icon icon-report">R</div>
+    <div class="icon-chip icon-report" aria-hidden="true"><svg viewBox="0 0 24 24" role="img"><path fill="#ffffff" d="M6 19h12v2H4V3h2v16zm2-2V9h2v8H8zm4 0V5h2v12h-2zm4 0v-6h2v6h-2z"/></svg></div>
     <h3>Dashboard & Reporting</h3>
     <p>Interactive visual dashboards and automated reporting that make complex information easier to understand.</p>
   </div>
 
   <div class="card">
-    <div class="simple-icon icon-analytics">A</div>
+    <div class="icon-chip icon-analytics" aria-hidden="true"><svg viewBox="0 0 24 24" role="img"><path fill="#ffffff" d="M4 18h16v2H2V4h2v14zm2-3l3.5-4 2.5 2 4.5-6L19 9V5h-4l1.9 1.9-5 6.6-2.6-2.1L6 13.8 6 15z"/></svg></div>
     <h3>Data Analysis & Insights</h3>
     <p>Business-focused analytics to identify trends, measure performance, and support better strategic decisions.</p>
   </div>
 
   <div class="card">
-    <div class="simple-icon icon-integration">I</div>
+    <div class="icon-chip icon-integration" aria-hidden="true"><svg viewBox="0 0 24 24" role="img"><path fill="#ffffff" d="M7 7h4V3H7v1H4v6h3V9h4v6H7v-1H4v6h3v1h4v-4H7v-1h4v-2h2v2h4v1h-4v4h4v-1h3v-6h-3v1h-4V9h4v1h3V4h-3v1h-4V3h-4v4z"/></svg></div>
     <h3>System Integration</h3>
     <p>Connect data sources, applications, and workflows into a seamless environment that supports daily operations.</p>
   </div>
 
   <div class="card">
-    <div class="simple-icon icon-support">S</div>
+    <div class="icon-chip icon-support" aria-hidden="true"><svg viewBox="0 0 24 24" role="img"><path fill="#ffffff" d="M12 2a7 7 0 00-7 7v3a2 2 0 01-1 1.73V16a2 2 0 002 2h3v-5H7V9a5 5 0 0110 0v4h-2v5h1a2 2 0 002-2v-2.27A2 2 0 0119 12V9a7 7 0 00-7-7zm-1 16h2a2 2 0 01-2 2h-1v-2h1z"/></svg></div>
     <h3>Support & Maintenance</h3>
     <p>Ongoing technical support, issue resolution, and enhancement services to keep your systems running smoothly.</p>
   </div>
@@ -646,7 +653,7 @@
     <div class="services-grid">
   <div class="card" style="min-height:220px;display:flex;flex-direction:column;justify-content:space-between;">
     <div>
-      <div class="simple-icon icon-project-a" style="margin-bottom:18px;">P</div>
+      <div class="icon-chip icon-project-a" style="margin-bottom:18px;" aria-hidden="true"><svg viewBox="0 0 24 24" role="img"><path fill="#ffffff" d="M4 4h7v7H4V4zm9 0h7v4h-7V4zM4 13h4v7H4v-7zm6 0h10v7H10v-7z"/></svg></div>
       <h3>Data Platform & Analytics Solution</h3>
       <p>A modern analytics solution concept designed to centralize business data, improve reporting visibility, and support better operational decisions.</p>
     </div>
@@ -654,7 +661,7 @@
 
   <div class="card" style="min-height:220px;display:flex;flex-direction:column;justify-content:space-between;opacity:.85;">
     <div>
-      <div class="simple-icon icon-project-b" style="margin-bottom:18px;">+</div>
+      <div class="icon-chip icon-project-b" style="margin-bottom:18px;" aria-hidden="true"><svg viewBox="0 0 24 24" role="img"><path fill="#ffffff" d="M11 5h2v5h5v2h-5v5h-2v-5H6v-2h5V5z"/></svg></div>
       <h3>More Projects Coming Soon</h3>
       <p>We are expanding our portfolio with more digital products, reporting solutions, and cloud-based data platforms.</p>
     </div>
