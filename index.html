@@ -1026,6 +1026,82 @@
       }
     }
 
+
+    /* Centered wide-stretch layout fix */
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow-x: hidden !important;
+    }
+
+    section,
+    #home,
+    #about {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      padding-top: 90px !important;
+      padding-bottom: 90px !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      box-sizing: border-box !important;
+    }
+
+    .hero,
+    #about,
+    .about {
+      width: min(96vw, 1560px) !important;
+      max-width: 1560px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      box-sizing: border-box !important;
+      border-radius: 24px !important;
+    }
+
+    .hero {
+      padding-left: 40px !important;
+      padding-right: 40px !important;
+    }
+
+    .about {
+      padding-left: 40px !important;
+      padding-right: 40px !important;
+    }
+
+    @media (max-width: 1024px) {
+      .hero,
+      #about,
+      .about {
+        width: min(94vw, 100%) !important;
+        max-width: 94vw !important;
+        border-radius: 20px !important;
+      }
+
+      .hero,
+      .about {
+        padding-left: 28px !important;
+        padding-right: 28px !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero,
+      #about,
+      .about {
+        width: min(96vw, 100%) !important;
+        max-width: 96vw !important;
+        border-radius: 16px !important;
+      }
+
+      .hero,
+      .about {
+        padding-left: 18px !important;
+        padding-right: 18px !important;
+      }
+    }
+
 </style>
 </head>
 <body>
