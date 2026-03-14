@@ -540,32 +540,27 @@
   
         .back-to-top-wrapper {
       text-align: center;
-      margin-top: 24px;
-      margin-bottom: 8px;
+      margin-top: 28px;
+      margin-bottom: 10px;
     }
 
-        .back-to-top {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+    .back-to-top {
+      display: inline-block;
       padding: 12px 20px;
       border-radius: 999px;
       text-decoration: none;
       font-weight: 700;
-      font-size: 0.95rem;
       color: #ffffff !important;
       background: linear-gradient(135deg, #2563eb, #7c3aed);
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25);
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.28);
       transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
     }
 
-        .back-to-top:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 28px rgba(37, 99, 235, 0.35);
-            opacity: 0.95;
-        }
+    .back-to-top:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.36);
+      opacity: 0.96;
+    }
 
     </style>
 </head>
@@ -753,10 +748,12 @@
         <p>+60 14-305 7391</p>
       </div>
     </div>
-    <p style="margin-top:24px;">© 2026 Technus Solutions. All rights reserved.</p>
-      <div class="back-to-top-wrapper">
-        <a href="#home" class="back-to-top">↑ Back to Top</a>
+
+    <div class="back-to-top-wrapper">
+      <a href="#home" class="back-to-top" id="backToTopLink">↑ Back to Top</a>
     </div>
+
+    <p style="margin-top:24px;">© 2026 Technus Solutions. All rights reserved.</p>
 </footer>
 
   <div id="popupOverlay">
@@ -994,7 +991,7 @@
       footerCols[2].querySelectorAll('p')[0].textContent = t.footerContact;
       document.querySelector('footer > p').textContent = t.footerCopyright;
       const backToTop = document.querySelector('.back-to-top');
-      if (backToTop) backToTop.textContent = language === 'bm' ? '↑ Kembali ke Atas' : '↑ Back to Top';
+      if (backToTop) backToTop.textContent = lang === 'ms' ? '↑ Kembali ke Atas' : '↑ Back to Top';
 
       const floatingLinks = document.querySelectorAll('.floating-menu-link');
       floatingLinks[0].textContent = t.navHome;
@@ -1127,5 +1124,30 @@
     applyLanguage(localStorage.getItem('siteLanguage') || 'en');
     applyTheme(localStorage.getItem('siteTheme') || 'dark');
   </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const hashLinks = document.querySelectorAll('a[href^="#"]');
+      hashLinks.forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          const href = this.getAttribute('href');
+          if (!href || href === '#') return;
+
+          const target = document.querySelector(href);
+          if (!target) return;
+
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+          if (history.pushState) {
+            history.pushState(null, '', href);
+          } else {
+            location.hash = href;
+          }
+        });
+      });
+    });
+  </script>
+
 </body>
 </html>
