@@ -619,32 +619,97 @@
     }
 
 
-    .hero-secondary-btn {
-      background: rgba(255, 255, 255, 0.12) !important;
+    
+
+
+    /* Outline button treatment */
+    .hero-primary-btn,
+    .hero-secondary-btn,
+    .back-to-top {
+      background: transparent !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      border-width: 2px !important;
+      border-style: solid !important;
+      font-weight: 700 !important;
+    }
+
+    .hero-primary-btn {
       color: #ffffff !important;
-      border: 1px solid rgba(255, 255, 255, 0.38) !important;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+      border-color: rgba(255, 255, 255, 0.82) !important;
+    }
+
+    .hero-primary-btn:hover {
+      background: rgba(255, 255, 255, 0.08) !important;
+      border-color: #ffffff !important;
+      color: #ffffff !important;
+      transform: translateY(-2px);
+    }
+
+    .hero-secondary-btn {
+      color: #ffffff !important;
+      border-color: rgba(255, 255, 255, 0.58) !important;
     }
 
     .hero-secondary-btn:hover {
-      background: rgba(255, 255, 255, 0.18) !important;
-      border-color: rgba(255, 255, 255, 0.55) !important;
+      background: rgba(255, 255, 255, 0.06) !important;
+      border-color: rgba(255, 255, 255, 0.82) !important;
       color: #ffffff !important;
+      transform: translateY(-2px);
+    }
+
+    .back-to-top {
+      color: #cbd5e1 !important;
+      border-color: rgba(148, 163, 184, 0.58) !important;
+      border-radius: 999px;
+      padding: 0.75rem 1.25rem;
+    }
+
+    .back-to-top:hover {
+      background: rgba(255, 255, 255, 0.04) !important;
+      border-color: rgba(226, 232, 240, 0.92) !important;
+      color: #ffffff !important;
+      transform: translateY(-2px);
+    }
+
+    body.light-theme .hero-primary-btn,
+    body.light-theme .hero-secondary-btn,
+    body.light-theme .back-to-top {
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+
+    body.light-theme .hero-primary-btn {
+      color: #0f766e !important;
+      border-color: rgba(15, 118, 110, 0.78) !important;
+    }
+
+    body.light-theme .hero-primary-btn:hover {
+      background: rgba(15, 118, 110, 0.06) !important;
+      border-color: #0f766e !important;
+      color: #115e59 !important;
     }
 
     body.light-theme .hero-secondary-btn {
-      background: rgba(255, 255, 255, 0.92) !important;
-      color: #0f766e !important;
-      border: 1px solid rgba(15, 118, 110, 0.24) !important;
-      box-shadow: 0 12px 28px rgba(15, 118, 110, 0.12);
+      color: #2563eb !important;
+      border-color: rgba(37, 99, 235, 0.62) !important;
     }
 
     body.light-theme .hero-secondary-btn:hover {
-      background: #ffffff !important;
+      background: rgba(37, 99, 235, 0.05) !important;
+      border-color: rgba(37, 99, 235, 0.86) !important;
+      color: #1d4ed8 !important;
+    }
+
+    body.light-theme .back-to-top {
+      color: #0f766e !important;
+      border-color: rgba(15, 118, 110, 0.48) !important;
+    }
+
+    body.light-theme .back-to-top:hover {
+      background: rgba(15, 118, 110, 0.05) !important;
+      border-color: rgba(15, 118, 110, 0.82) !important;
       color: #115e59 !important;
-      border-color: rgba(15, 118, 110, 0.34) !important;
-      box-shadow: 0 16px 34px rgba(15, 118, 110, 0.16);
     }
 
 </style>
@@ -679,7 +744,7 @@
       Transforming data into powerful digital solutions. We build cloud-ready systems, dashboards,
       analytics workflows, and scalable platforms that help businesses work smarter.
     </p>
-    <a href="#contact" class="btn">Get Started</a>
+    <a href="#contact" class="btn hero-primary-btn">Get Started</a>
     <a href="#services" class="btn hero-secondary-btn">Learn More</a>
   </section>
 
