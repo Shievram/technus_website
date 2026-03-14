@@ -712,6 +712,50 @@
       color: #115e59 !important;
     }
 
+
+    /* Wider section layout */
+    .hero .container,
+    .hero-content,
+    .about .container,
+    .about-content,
+    .section-container {
+      max-width: 1360px !important;
+      width: min(92vw, 1360px) !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+
+    .hero {
+      padding-left: 32px !important;
+      padding-right: 32px !important;
+    }
+
+    .about {
+      width: min(92vw, 1360px) !important;
+      max-width: 1360px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding-left: 48px !important;
+      padding-right: 48px !important;
+    }
+
+    @media (max-width: 1024px) {
+      .hero .container,
+      .hero-content,
+      .about .container,
+      .about-content,
+      .section-container,
+      .about {
+        width: min(94vw, 100%) !important;
+        max-width: 94vw !important;
+      }
+
+      .about {
+        padding-left: 28px !important;
+        padding-right: 28px !important;
+      }
+    }
+
 </style>
 </head>
 <body>
@@ -879,7 +923,7 @@
   </section>
 
   <footer>
-    <div style="max-width:1200px;margin:auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:20px;text-align:left;">
+    <div style="max-width: 1320px; margin: auto; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 20px; text-align: left;">
       <div>
         <p style="font-weight:700;color:#fff;margin-bottom:10px;">Technus Solutions</p>
         <p>Cloud data engineering, modern analytics, and digital solutions for smarter business operations.</p>
