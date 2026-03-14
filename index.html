@@ -885,6 +885,45 @@
       }
     }
 
+
+    /* Viewport-safe section sizing */
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden !important;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    .hero,
+    #about,
+    .about {
+      width: calc(100vw - 32px) !important;
+      max-width: 1500px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      box-sizing: border-box !important;
+    }
+
+    @media (max-width: 1024px) {
+      .hero,
+      #about,
+      .about {
+        width: calc(100vw - 20px) !important;
+        max-width: calc(100vw - 20px) !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero,
+      #about,
+      .about {
+        width: calc(100vw - 12px) !important;
+        max-width: calc(100vw - 12px) !important;
+      }
+    }
+
 </style>
 </head>
 <body>
