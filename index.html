@@ -865,6 +865,26 @@
       }
     }
 
+
+    /* Fill more horizontal space for main panels */
+    .hero,
+    #about,
+    .about {
+      width: min(96vw, 1500px) !important;
+      max-width: 1500px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+
+    @media (max-width: 1024px) {
+      .hero,
+      #about,
+      .about {
+        width: min(94vw, 100%) !important;
+        max-width: 94vw !important;
+      }
+    }
+
 </style>
 </head>
 <body>
