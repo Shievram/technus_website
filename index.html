@@ -1374,6 +1374,105 @@
       }
     }
 
+
+    /* Darker light-theme palette */
+    body.light-theme {
+      background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), transparent 24%),
+        radial-gradient(circle at top right, rgba(13, 148, 136, 0.12), transparent 22%),
+        linear-gradient(180deg, #dbe3ee 0%, #dde6ef 46%, #d5e1ea 100%) !important;
+      color: #0f172a !important;
+    }
+
+    body.light-theme header {
+      background: rgba(232, 238, 244, 0.90) !important;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.10) !important;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08) !important;
+    }
+
+    body.light-theme .hero {
+      background:
+        radial-gradient(circle at 18% 18%, rgba(37, 99, 235, 0.20), transparent 22%),
+        radial-gradient(circle at 82% 24%, rgba(13, 148, 136, 0.18), transparent 24%),
+        linear-gradient(135deg, #c9d9ef 0%, #c8ddd9 52%, #bed7d2 100%) !important;
+    }
+
+    body.light-theme .card,
+    body.light-theme .about,
+    body.light-theme .contact {
+      background: rgba(244, 247, 250, 0.88) !important;
+      border: 1px solid rgba(100, 116, 139, 0.18) !important;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.10) !important;
+    }
+
+    body.light-theme footer {
+      background: linear-gradient(180deg, #cedae7 0%, #c7d5e3 100%) !important;
+      color: #334155 !important;
+      border-top: 1px solid rgba(100, 116, 139, 0.18) !important;
+    }
+
+    body.light-theme .nav-links a,
+    body.light-theme .section-text,
+    body.light-theme .hero p,
+    body.light-theme p {
+      color: #475569 !important;
+    }
+
+    body.light-theme h1,
+    body.light-theme h2,
+    body.light-theme h3,
+    body.light-theme .logo {
+      color: #0f172a !important;
+    }
+
+
+    /* Rectangular panels only */
+    .hero,
+    .about,
+    .contact,
+    #about,
+    #contact,
+    #home {
+      border-radius: 0 !important;
+    }
+
+
+    /* Fill side gaps for main panels */
+    #about,
+    .about {
+      width: min(98vw, 1820px) !important;
+      max-width: 1820px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+
+    @media (max-width: 1024px) {
+      #about,
+      .about {
+        width: min(96vw, 100%) !important;
+        max-width: 96vw !important;
+      }
+    }
+
+
+    /* Tighter side fill for main panels */
+    #about,
+    .about {
+      width: calc(100vw - 8px) !important;
+      max-width: calc(100vw - 8px) !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      box-sizing: border-box !important;
+    }
+
+    @media (max-width: 1024px) {
+      #about,
+      .about {
+        width: calc(100vw - 6px) !important;
+        max-width: calc(100vw - 6px) !important;
+      }
+    }
+
 </style>
 </head>
 <body>
