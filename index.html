@@ -1788,36 +1788,7 @@ body.light-theme .loader-brand {
       color: #166534 !important;
     }
 
-
-    .form-meta-row {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      align-items: flex-start;
-    }
-
-    .form-helper-text {
-      font-size: 0.85rem;
-      color: #94a3b8;
-      min-height: 20px;
-    }
-
-    body.light-theme .form-helper-text {
-      color: #475569;
-    }
-
-    .g-recaptcha {
-      transform-origin: left top;
-    }
-
-    @media (max-width: 420px) {
-      .g-recaptcha {
-        transform: scale(0.92);
-      }
-    }
-
 </style>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
   <div id="siteLoader">
@@ -1968,7 +1939,6 @@ body.light-theme .loader-brand {
 
       <div id="contactGrid" style="display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:start;">
         <form id="contactForm" style="display:grid;gap:14px;">
-          <input type="hidden" id="websiteField" name="website" value="">
           <input type="hidden" name="_subject" value="New message from Technus Solutions website">
 
           <div id="nameEmailGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
@@ -1978,11 +1948,6 @@ body.light-theme .loader-brand {
 
           <input type="text" id="subjectInput" name="subject" placeholder="Topic / Subject" style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;">
           <textarea rows="6" id="messageInput" name="message" placeholder="Message" required style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;resize:vertical;"></textarea>
-
-          <div class="form-meta-row">
-            <div class="g-recaptcha" data-sitekey="6LfNbIwsAAAAAIZm2Wrn2z90ihsF026T_JL1DxO2"></div>
-            <div id="formHelperText" class="form-helper-text"></div>
-          </div>
 
           <button type="submit" class="btn" id="sendBtn" style="cursor:pointer;width:220px;">Send Message</button>
         </form>
@@ -2048,7 +2013,7 @@ body.light-theme .loader-brand {
   </div>
 
   <script>
-    const CONTACT_API_ENDPOINT = "/api/contact";
+    const FORMSPREE_ENDPOINT = "https://formspree.io/f/mjgarkyr";
 
     const translations = {
       en: {
@@ -2116,11 +2081,7 @@ body.light-theme .loader-brand {
         popupSuccessMessage: 'Thank you. Your message has been submitted successfully.',
         popupErrorTitle: 'Submission Failed',
         popupErrorMessage: 'Sorry, something went wrong. Please try again later.',
-        popupClose: 'Close',
-        captchaRequired: 'Please complete the reCAPTCHA verification.',
-        submitValidationError: 'Please complete all required fields correctly.',
-        submitSuccessDetail: 'Your message has been sent successfully.',
-        submitFailDetail: 'Unable to send your message right now. Please try again later.'
+        popupClose: 'Close'
       },
       ms: {
         title: 'Technus Solutions',
@@ -2187,11 +2148,7 @@ body.light-theme .loader-brand {
         popupSuccessMessage: 'Terima kasih. Mesej anda telah berjaya dihantar.',
         popupErrorTitle: 'Penghantaran Gagal',
         popupErrorMessage: 'Maaf, sesuatu telah berlaku. Sila cuba lagi kemudian.',
-        popupClose: 'Tutup',
-        captchaRequired: 'Sila lengkapkan pengesahan reCAPTCHA.',
-        submitValidationError: 'Sila lengkapkan semua medan wajib dengan betul.',
-        submitSuccessDetail: 'Mesej anda telah berjaya dihantar.',
-        submitFailDetail: 'Mesej anda tidak dapat dihantar sekarang. Sila cuba lagi kemudian.'
+        popupClose: 'Tutup'
       }
     };
 
@@ -2340,68 +2297,17 @@ body.light-theme .loader-brand {
       const t = translations[lang];
       const form = e.target;
       const sendBtn = document.getElementById('sendBtn');
-      const helperText = document.getElementById('formHelperText');
+      const formData = new FormData(form);
 
-      if (!form.reportValidity()) {
-        if (helperText) helperText.textContent = t.submitValidationError || 'Please complete all required fields correctly.';
-        return;
-      }
-
-      const honeypot = document.getElementById('websiteField');
-      if (honeypot && honeypot.value.trim() !== '') {
-        if (helperText) helperText.textContent = t.submitFailDetail || 'Unable to send your message right now. Please try again later.';
-        return;
-      }
-
-      const recaptchaToken = typeof grecaptcha !== 'undefined' ? grecaptcha.getResponse() : '';
-      if (!recaptchaToken) {
-        if (helperText) helperText.textContent = t.captchaRequired || 'Please complete the reCAPTCHA verification.';
-        return;
-      }
-
-      const payload = {
-        name: (document.getElementById('nameInput')?.value || '').trim(),
-        email: (document.getElementById('emailInput')?.value || '').trim(),
-        subject: (document.getElementById('subjectInput')?.value || '').trim(),
-        message: (document.getElementById('messageInput')?.value || '').trim(),
-        recaptchaToken
-      };
-
-      if (helperText) helperText.textContent = '';
       sendBtn.disabled = true;
       sendBtn.textContent = t.sending;
 
       try {
-        const response = await fetch(CONTACT_API_ENDPOINT, {
+        const response = await fetch(FORMSPREE_ENDPOINT, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(payload)
+          body: formData,
+          headers: { 'Accept': 'application/json' }
         });
-
-        const result = await response.json().catch(() => ({}));
-
-        if (response.ok && result.success !== false) {
-          form.reset();
-          if (helperText) helperText.textContent = '';
-          if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
-          showPopup('success', t.popupSuccessTitle, result.message || t.submitSuccessDetail || t.popupSuccessMessage);
-        } else {
-          if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
-          if (helperText) helperText.textContent = result.message || t.submitFailDetail || t.popupErrorMessage;
-          showPopup('error', t.popupErrorTitle, result.message || t.submitFailDetail || t.popupErrorMessage);
-        }
-      } catch (error) {
-        if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
-        if (helperText) helperText.textContent = t.submitFailDetail || t.popupErrorMessage;
-        showPopup('error', t.popupErrorTitle, t.submitFailDetail || t.popupErrorMessage);
-      } finally {
-        sendBtn.disabled = false;
-        sendBtn.textContent = t.sendBtn;
-      }
-    });
 
         if (response.ok) {
           form.reset();
