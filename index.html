@@ -7,6 +7,8 @@
   
   <link rel="icon" type="image/png" href="./logo.png?v=2">
   <link rel="shortcut icon" type="image/png" href="./logo.png?v=2">
+
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   
   <style>
     * {
@@ -1949,6 +1951,24 @@ body.light-theme .loader-brand {
           <input type="text" id="subjectInput" name="subject" placeholder="Topic / Subject" style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;">
           <textarea rows="6" id="messageInput" name="message" placeholder="Message" required style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;resize:vertical;"></textarea>
 
+          <form id="contactForm" style="display:grid;gap:14px;">
+  <input type="hidden" name="_subject" value="New message from Technus Solutions website">
+
+  <div id="nameEmailGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+    <input type="text" id="nameInput" name="name" placeholder="Name" required style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;">
+    <input type="email" id="emailInput" name="email" placeholder="Email" required style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;">
+  </div>
+
+  <input type="text" id="subjectInput" name="subject" placeholder="Topic / Subject" style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;">
+  <textarea rows="6" id="messageInput" name="message" placeholder="Message" required style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;resize:vertical;"></textarea>
+
+  <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY" style="margin-top:6px;"></div>
+
+  <button type="submit" class="btn" id="sendBtn" style="cursor:pointer;width:220px;">
+    Send Message
+  </button>
+</form>
+
           <button type="submit" class="btn" id="sendBtn" style="cursor:pointer;width:220px;">Send Message</button>
         </form>
 
@@ -2289,39 +2309,58 @@ body.light-theme .loader-brand {
         floatingMenu.classList.remove('open');
       });
     });
+<script>
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-    document.getElementById('contactForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
+  const lang = localStorage.getItem('siteLanguage') || 'en';
+  const t = translations[lang];
+  const form = e.target;
+  const sendBtn = document.getElementById('sendBtn');
+  const formData = new FormData(form);
 
-      const lang = localStorage.getItem('siteLanguage') || 'en';
-      const t = translations[lang];
-      const form = e.target;
-      const sendBtn = document.getElementById('sendBtn');
-      const formData = new FormData(form);
+  const recaptchaResponse = typeof grecaptcha !== 'undefined' ? grecaptcha.getResponse() : '';
 
-      sendBtn.disabled = true;
-      sendBtn.textContent = t.sending;
+  if (!recaptchaResponse) {
+    showPopup(
+      'error',
+      lang === 'ms' ? 'Pengesahan Diperlukan' : 'Verification Required',
+      lang === 'ms'
+        ? 'Sila lengkapkan reCAPTCHA terlebih dahulu.'
+        : 'Please complete the reCAPTCHA first.'
+    );
+    return;
+  }
 
-      try {
-        const response = await fetch(FORMSPREE_ENDPOINT, {
-          method: 'POST',
-          body: formData,
-          headers: { 'Accept': 'application/json' }
-        });
+  sendBtn.disabled = true;
+  sendBtn.textContent = t.sending;
 
-        if (response.ok) {
-          form.reset();
-          showPopup('success', t.popupSuccessTitle, t.popupSuccessMessage);
-        } else {
-          showPopup('error', t.popupErrorTitle, t.popupErrorMessage);
-        }
-      } catch (error) {
-        showPopup('error', t.popupErrorTitle, t.popupErrorMessage);
-      } finally {
-        sendBtn.disabled = false;
-        sendBtn.textContent = t.sendBtn;
-      }
+  formData.append('g-recaptcha-response', recaptchaResponse);
+
+  try {
+    const response = await fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
     });
+
+    if (response.ok) {
+      form.reset();
+      if (typeof grecaptcha !== 'undefined') {
+        grecaptcha.reset();
+      }
+      showPopup('success', t.popupSuccessTitle, t.popupSuccessMessage);
+    } else {
+      showPopup('error', t.popupErrorTitle, t.popupErrorMessage);
+    }
+  } catch (error) {
+    showPopup('error', t.popupErrorTitle, t.popupErrorMessage);
+  } finally {
+    sendBtn.disabled = false;
+    sendBtn.textContent = t.sendBtn;
+  }
+});
+</script>
 
     document.getElementById('langToggle').addEventListener('click', () => {
       const current = localStorage.getItem('siteLanguage') || 'en';
