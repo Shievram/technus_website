@@ -1994,7 +1994,11 @@ body.light-theme .loader-brand {
   <input type="text" id="subjectInput" name="subject" placeholder="Topic / Subject" style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;">
   <textarea rows="6" id="messageInput" name="message" placeholder="Message" required style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;resize:vertical;"></textarea>
 
-  <div class="g-recaptcha" data-sitekey="6LfNbIwsAAAAAIZm2Wrn2z90ihsF026T_JL1DxO2" style="margin-top:6px;"></div>
+  <form action="" method="POST">
+      <div class="g-recaptcha" data-sitekey="6LfNbIwsAAAAAIZm2Wrn2z90ihsF026T_JL1DxO2" data-action="LOGIN"></div>
+      <br/>
+      <input type="submit" value="Submit">
+  </form>
 
   <button type="submit" class="btn" id="sendBtn" style="cursor:pointer;width:220px;">
     Send Message
