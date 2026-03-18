@@ -2204,12 +2204,7 @@ body.light-theme .loader-brand {
     function applyLanguage(lang) {
       const t = translations[lang];
       document.title = t.title;
-
-      document.getElementById('nav-home').textContent = t.navHome;
-      document.getElementById('nav-about').textContent = t.navAbout;
-      document.getElementById('nav-services').textContent = t.navServices;
-      document.getElementById('nav-projects').textContent = t.navProjects;
-      document.getElementById('nav-contact').textContent = t.navContact;
+      
       document.getElementById('langToggle').textContent = t.langBtn;
 
       document.querySelector('#home h1').textContent = t.heroTitle;
