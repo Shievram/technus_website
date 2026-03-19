@@ -94,6 +94,127 @@
       color: #fff;
     }
 
+    .nav-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-left: 20px;
+  position: relative;
+}
+
+.icon-toggle-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+  color: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.25s ease;
+  padding: 0;
+}
+
+.icon-toggle-btn:hover {
+  background: rgba(255,255,255,0.10);
+  transform: translateY(-1px);
+}
+
+.icon-toggle-btn svg {
+  width: 21px;
+  height: 21px;
+  display: block;
+}
+
+.language-dropdown {
+  position: relative;
+}
+
+.language-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 120px;
+  background: rgba(17, 24, 39, 0.96);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.28);
+  backdrop-filter: blur(12px);
+  padding: 8px;
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 2300;
+}
+
+.language-menu.open {
+  display: flex;
+}
+
+.language-option {
+  border: none;
+  background: transparent;
+  color: #e5e7eb;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: 0.2s ease;
+}
+
+.language-option:hover {
+  background: rgba(99,102,241,0.18);
+}
+
+body.light-theme .icon-toggle-btn {
+  background: rgba(255,255,255,0.9);
+  color: #0f172a;
+  border: 1px solid rgba(15,23,42,0.10);
+}
+
+body.light-theme .icon-toggle-btn:hover {
+  background: rgba(255,255,255,1);
+}
+
+body.light-theme .language-menu {
+  background: rgba(255,255,255,0.96);
+  border: 1px solid rgba(15,23,42,0.08);
+  box-shadow: 0 18px 40px rgba(15,23,42,0.12);
+}
+
+body.light-theme .language-option {
+  color: #0f172a;
+}
+
+body.light-theme .language-option:hover {
+  background: rgba(99,102,241,0.10);
+}
+
+@media (max-width: 768px) {
+  .nav-actions {
+    margin-left: 0;
+    gap: 8px;
+  }
+
+  .icon-toggle-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .icon-toggle-btn svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .language-menu {
+    right: 0;
+    min-width: 110px;
+  }
+}
+    
     .hero {
       background:
         radial-gradient(circle at 20% 20%, rgba(96, 165, 250, 0.22), transparent 24%),
@@ -1859,9 +1980,25 @@ body.light-theme .loader-brand {
 
       <div class="nav-right">
           <div class="nav-actions">
-          <button class="control-btn" id="langToggle">BM</button>
-          <button class="control-btn" id="themeToggle">☀ Light</button>
-        </div>
+  <button class="icon-toggle-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+    <svg id="themeIcon" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="currentColor" d="M12 3.5a1 1 0 0 1 1 1V6a1 1 0 1 1-2 0V4.5a1 1 0 0 1 1-1Zm0 14a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11Zm8.5-6.5a1 1 0 0 1-1 1H18a1 1 0 1 1 0-2h1.5a1 1 0 0 1 1 1ZM7 12a1 1 0 0 1-1 1H4.5a1 1 0 1 1 0-2H6a1 1 0 0 1 1 1Zm9.95 5.536 1.06 1.06a1 1 0 1 1-1.414 1.414l-1.06-1.06a1 1 0 0 1 1.414-1.414ZM7.404 8.99 6.343 7.93A1 1 0 0 1 7.757 6.515l1.061 1.06A1 1 0 1 1 7.404 8.99Zm10.607-2.475a1 1 0 0 1 0 1.414l-1.06 1.06a1 1 0 1 1-1.415-1.414l1.061-1.06a1 1 0 0 1 1.414 0ZM8.818 16.95a1 1 0 0 1 0 1.414l-1.06 1.06a1 1 0 0 1-1.415-1.414l1.061-1.06a1 1 0 0 1 1.414 0ZM12 18a1 1 0 0 1 1 1v1.5a1 1 0 1 1-2 0V19a1 1 0 0 1 1-1Z"/>
+    </svg>
+  </button>
+
+  <div class="language-dropdown" id="languageDropdown">
+    <button class="icon-toggle-btn" id="languageToggle" aria-label="Select language" title="Select language">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.93 9h-3.1a15.9 15.9 0 0 0-1.38-5.02A8.03 8.03 0 0 1 18.93 11ZM12 4.04c.98 1.18 1.92 3.42 2.2 6.96H9.8C10.08 7.46 11.02 5.22 12 4.04ZM4.07 13h3.1c.18 1.79.63 3.55 1.38 5.02A8.03 8.03 0 0 1 4.07 13Zm3.1-2h-3.1a8.03 8.03 0 0 1 4.48-5.02A15.9 15.9 0 0 0 7.17 11Zm4.83 8.96c-.98-1.18-1.92-3.42-2.2-6.96h4.4c-.28 3.54-1.22 5.78-2.2 6.96ZM14.2 13c-.18 1.79-.63 3.55-1.38 5.02A15.9 15.9 0 0 0 14.2 13Zm-4.4 0c.18 1.79.63 3.55 1.38 5.02A15.9 15.9 0 0 1 9.8 13Zm5.65 5.02A15.9 15.9 0 0 0 16.83 13h3.1a8.03 8.03 0 0 1-4.48 5.02Z"/>
+      </svg>
+    </button>
+
+    <div class="language-menu" id="languageMenu">
+      <button class="language-option" data-lang="en">English</button>
+      <button class="language-option" data-lang="ms">BM</button>
+    </div>
+  </div>
+</div>
       </div>
     </nav>
   </header>
@@ -2206,8 +2343,7 @@ body.light-theme .loader-brand {
     function applyLanguage(lang) {
       const t = translations[lang];
       document.title = t.title;
-      
-      document.getElementById('langToggle').textContent = t.langBtn;
+    
 
       document.querySelector('#home h1').textContent = t.heroTitle;
       document.querySelector('#home h1 + p').textContent = t.heroText;
@@ -2286,12 +2422,21 @@ body.light-theme .loader-brand {
     }
 
     function applyTheme(theme) {
-      const btn = document.getElementById('themeToggle');
-      document.body.classList.toggle('light-theme', theme === 'light');
-      const lang = localStorage.getItem('siteLanguage') || 'en';
-      btn.textContent = theme === 'light' ? translations[lang].themeDark : translations[lang].themeLight;
-      localStorage.setItem('siteTheme', theme);
-    }
+  document.body.classList.toggle('light-theme', theme === 'light');
+  localStorage.setItem('siteTheme', theme);
+
+  const themeIcon = document.getElementById('themeIcon');
+
+  if (theme === 'light') {
+    themeIcon.innerHTML = `
+      <path fill="currentColor" d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/>
+    `;
+  } else {
+    themeIcon.innerHTML = `
+      <path fill="currentColor" d="M12 3.5a1 1 0 0 1 1 1V6a1 1 0 1 1-2 0V4.5a1 1 0 0 1 1-1Zm0 14a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11Zm8.5-6.5a1 1 0 0 1-1 1H18a1 1 0 1 1 0-2h1.5a1 1 0 0 1 1 1ZM7 12a1 1 0 0 1-1 1H4.5a1 1 0 1 1 0-2H6a1 1 0 0 1 1 1Zm9.95 5.536 1.06 1.06a1 1 0 1 1-1.414 1.414l-1.06-1.06a1 1 0 0 1 1.414-1.414ZM7.404 8.99 6.343 7.93A1 1 0 0 1 7.757 6.515l1.061 1.06A1 1 0 1 1 7.404 8.99Zm10.607-2.475a1 1 0 0 1 0 1.414l-1.06 1.06a1 1 0 1 1-1.415-1.414l1.061-1.06a1 1 0 0 1 1.414 0ZM8.818 16.95a1 1 0 0 1 0 1.414l-1.06 1.06a1 1 0 0 1-1.415-1.414l1.061-1.06a1 1 0 0 1 1.414 0ZM12 18a1 1 0 0 1 1 1v1.5a1 1 0 1 1-2 0V19a1 1 0 0 1 1-1Z"/>
+    `;
+  }
+}
 
     function showPopup(type, title, message) {
       document.getElementById('popupIcon').textContent = type === 'success' ? '✅' : '⚠️';
@@ -2389,14 +2534,32 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
 });
 
 
-    document.getElementById('langToggle').addEventListener('click', () => {
-      const current = localStorage.getItem('siteLanguage') || 'en';
-      const next = current === 'en' ? 'ms' : 'en';
-      applyLanguage(next);
+    const languageToggle = document.getElementById('languageToggle');
+const languageMenu = document.getElementById('languageMenu');
+const languageOptions = document.querySelectorAll('.language-option');
 
-      const theme = localStorage.getItem('siteTheme') || 'dark';
-      applyTheme(theme);
-    });
+languageToggle.addEventListener('click', (e) => {
+  e.stopPropagation();
+  languageMenu.classList.toggle('open');
+});
+
+languageOptions.forEach(option => {
+  option.addEventListener('click', () => {
+    const selectedLang = option.getAttribute('data-lang');
+    applyLanguage(selectedLang);
+
+    const theme = localStorage.getItem('siteTheme') || 'dark';
+    applyTheme(theme);
+
+    languageMenu.classList.remove('open');
+  });
+});
+
+document.addEventListener('click', (e) => {
+  if (!document.getElementById('languageDropdown').contains(e.target)) {
+    languageMenu.classList.remove('open');
+  }
+});
 
     document.getElementById('themeToggle').addEventListener('click', () => {
       const current = localStorage.getItem('siteTheme') || 'dark';
