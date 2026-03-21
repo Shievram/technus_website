@@ -1961,6 +1961,28 @@ body.light-theme .loader-brand {
       color: #166534 !important;
     }
 
+
+    .form-helper-text {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      min-height: 20px;
+      margin-top: 10px;
+    }
+
+    body.light-theme .form-helper-text {
+      color: #475569;
+    }
+
+    .g-recaptcha {
+      transform-origin: left top;
+    }
+
+    @media (max-width: 420px) {
+      .g-recaptcha {
+        transform: scale(0.92);
+      }
+    }
+
 </style>
 </head>
 <body>
@@ -2132,10 +2154,9 @@ body.light-theme .loader-brand {
   <textarea rows="6" id="messageInput" name="message" placeholder="Message" required style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;resize:vertical;"></textarea>
 
   
-  <div class="g-recaptcha" data-sitekey="6LfNbIwsAAAAAIZm2Wrn2z90ihsF026T_JL1DxO2" data-action="LOGIN"></div>
-  
-
-  <button type="submit" class="btn" id="sendBtn" style="cursor:pointer;width:220px;">
+  <div class="g-recaptcha" data-sitekey="6LfNbIwsAAAAAIZm2Wrn2z90ihsF026T_JL1DxO2"></div>
+            <div id="formHelperText" class="form-helper-text"></div>
+<button type="submit" class="btn" id="sendBtn" style="cursor:pointer;width:220px;">
     Send Message
   </button>
 </form>
@@ -2201,7 +2222,7 @@ body.light-theme .loader-brand {
   </div>
 
   <script>
-    const CONTACT_API_ENDPOINT = "/api/contact";
+    const FORMSPREE_ENDPOINT = "https://formspree.io/f/mjgarkyr";
 
     const translations = {
       en: {
@@ -2483,37 +2504,55 @@ body.light-theme .loader-brand {
     
 
 document.getElementById('contactForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
+      e.preventDefault();
 
-  const lang = localStorage.getItem('siteLanguage') || 'en';
-  const t = translations[lang];
-  const form = e.target;
-  const sendBtn = document.getElementById('sendBtn');
-  const formData = new FormData(form);
+      const lang = localStorage.getItem('siteLanguage') || 'en';
+      const t = translations[lang];
+      const form = e.target;
+      const sendBtn = document.getElementById('sendBtn');
+      const helperText = document.getElementById('formHelperText');
+      const formData = new FormData(form);
 
-  const recaptchaResponse = typeof grecaptcha !== 'undefined' ? grecaptcha.getResponse() : '';
+      const recaptchaResponse = typeof grecaptcha !== 'undefined' ? grecaptcha.getResponse() : '';
 
-  if (!recaptchaResponse) {
-    showPopup(
-      'error',
-      lang === 'ms' ? 'Pengesahan Diperlukan' : 'Verification Required',
-      lang === 'ms'
-        ? 'Sila lengkapkan reCAPTCHA terlebih dahulu.'
-        : 'Please complete the reCAPTCHA first.'
-    );
-    return;
-  }
+      if (!recaptchaResponse) {
+        if (helperText) {
+          helperText.textContent = lang === 'ms'
+            ? 'Sila lengkapkan reCAPTCHA terlebih dahulu.'
+            : 'Please complete the reCAPTCHA first.';
+        }
+        return;
+      }
 
-  sendBtn.disabled = true;
-  sendBtn.textContent = t.sending;
+      if (helperText) helperText.textContent = '';
 
-  formData.append('g-recaptcha-response', recaptchaResponse);
+      sendBtn.disabled = true;
+      sendBtn.textContent = t.sending;
 
-  try {
-    const response = await fetch(FORMSPREE_ENDPOINT, {
-      method: 'POST',
-      body: formData,
-      headers: { 'Accept': 'application/json' }
+      formData.append('g-recaptcha-response', recaptchaResponse);
+
+      try {
+        const response = await fetch(FORMSPREE_ENDPOINT, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          form.reset();
+          if (typeof grecaptcha !== 'undefined') {
+            grecaptcha.reset();
+          }
+          showPopup('success', t.popupSuccessTitle, t.popupSuccessMessage);
+        } else {
+          showPopup('error', t.popupErrorTitle, t.popupErrorMessage);
+        }
+      } catch (error) {
+        showPopup('error', t.popupErrorTitle, t.popupErrorMessage);
+      } finally {
+        sendBtn.disabled = false;
+        sendBtn.textContent = t.sendBtn;
+      }
     });
 
     if (response.ok) {
