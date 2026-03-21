@@ -1973,16 +1973,6 @@ body.light-theme .loader-brand {
       color: #475569;
     }
 
-    .g-recaptcha {
-      transform-origin: left top;
-    }
-
-    @media (max-width: 420px) {
-      .g-recaptcha {
-        transform: scale(0.92);
-      }
-    }
-
 </style>
 </head>
 <body>
@@ -2222,7 +2212,7 @@ body.light-theme .loader-brand {
   </div>
 
   <script>
-    const FORMSPREE_ENDPOINT = "https://formspree.io/f/mjgarkyr";
+    const CONTACT_API_ENDPOINT = "/api/contact";
 
     const translations = {
       en: {
@@ -2511,43 +2501,53 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
       const form = e.target;
       const sendBtn = document.getElementById('sendBtn');
       const helperText = document.getElementById('formHelperText');
-      const formData = new FormData(form);
 
-      const recaptchaResponse = typeof grecaptcha !== 'undefined' ? grecaptcha.getResponse() : '';
+      const name = document.getElementById('nameInput').value.trim();
+      const email = document.getElementById('emailInput').value.trim();
+      const subject = document.getElementById('subjectInput').value.trim();
+      const message = document.getElementById('messageInput').value.trim();
+      const recaptchaToken = typeof grecaptcha !== 'undefined' ? grecaptcha.getResponse() : '';
 
-      if (!recaptchaResponse) {
-        if (helperText) {
-          helperText.textContent = lang === 'ms'
-            ? 'Sila lengkapkan reCAPTCHA terlebih dahulu.'
-            : 'Please complete the reCAPTCHA first.';
-        }
+      if (!name || !email || !message) {
+        if (helperText) helperText.textContent = 'Please complete all required fields.';
         return;
       }
 
-      if (helperText) helperText.textContent = '';
+      if (!recaptchaToken) {
+        if (helperText) helperText.textContent = 'Please complete the reCAPTCHA first.';
+        return;
+      }
 
+      const payload = { name, email, subject, message, recaptchaToken };
+
+      if (helperText) helperText.textContent = '';
       sendBtn.disabled = true;
       sendBtn.textContent = t.sending;
 
-      formData.append('g-recaptcha-response', recaptchaResponse);
-
       try {
-        const response = await fetch(FORMSPREE_ENDPOINT, {
+        const response = await fetch(CONTACT_API_ENDPOINT, {
           method: 'POST',
-          body: formData,
-          headers: { 'Accept': 'application/json' }
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
         });
 
-        if (response.ok) {
+        const result = await response.json().catch(() => ({}));
+
+        if (response.ok && result.success) {
           form.reset();
-          if (typeof grecaptcha !== 'undefined') {
-            grecaptcha.reset();
-          }
-          showPopup('success', t.popupSuccessTitle, t.popupSuccessMessage);
+          if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
+          showPopup('success', t.popupSuccessTitle, result.message || t.popupSuccessMessage);
         } else {
-          showPopup('error', t.popupErrorTitle, t.popupErrorMessage);
+          if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
+          if (helperText) helperText.textContent = result.message || t.popupErrorMessage;
+          showPopup('error', t.popupErrorTitle, result.message || t.popupErrorMessage);
         }
       } catch (error) {
+        if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
+        if (helperText) helperText.textContent = t.popupErrorMessage;
         showPopup('error', t.popupErrorTitle, t.popupErrorMessage);
       } finally {
         sendBtn.disabled = false;
