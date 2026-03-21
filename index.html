@@ -2554,26 +2554,7 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
         sendBtn.textContent = t.sendBtn;
       }
     });
-
-    if (response.ok) {
-      form.reset();
-      if (typeof grecaptcha !== 'undefined') {
-        grecaptcha.reset();
-      }
-      showPopup('success', t.popupSuccessTitle, t.popupSuccessMessage);
-    } else {
-      showPopup('error', t.popupErrorTitle, t.popupErrorMessage);
-    }
-  } catch (error) {
-    showPopup('error', t.popupErrorTitle, t.popupErrorMessage);
-  } finally {
-    sendBtn.disabled = false;
-    sendBtn.textContent = t.sendBtn;
-  }
-});
-
-
-    const languageToggle = document.getElementById('languageToggle');
+const languageToggle = document.getElementById('languageToggle');
 const languageMenu = document.getElementById('languageMenu');
 const languageOptions = document.querySelectorAll('.language-option');
 
