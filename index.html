@@ -1973,6 +1973,113 @@ body.light-theme .loader-brand {
       color: #475569;
     }
 
+
+    .subject-field {
+      position: relative;
+      width: 100%;
+    }
+
+    .subject-label {
+      position: absolute;
+      top: -10px;
+      left: 14px;
+      padding: 0 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      z-index: 2;
+      color: #3b82f6;
+      background: #0f172a;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .subject-field.active .subject-label,
+    .subject-field.has-value .subject-label {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .subject-field::after {
+      content: "Topic / Subject";
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(229,231,235,0.72);
+      pointer-events: none;
+      transition: opacity 0.18s ease;
+    }
+
+    .subject-field.active::after,
+    .subject-field.has-value::after {
+      opacity: 0;
+    }
+
+    .subject-select {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.04);
+      color: transparent;
+      font-size: 1rem;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      cursor: pointer;
+      min-height: 58px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, padding 0.2s ease;
+      background-image: linear-gradient(45deg, transparent 50%, #94a3b8 50%), linear-gradient(135deg, #94a3b8 50%, transparent 50%);
+      background-position: calc(100% - 22px) calc(50% - 3px), calc(100% - 16px) calc(50% - 3px);
+      background-size: 6px 6px, 6px 6px;
+      background-repeat: no-repeat;
+    }
+
+    .subject-field.active .subject-select,
+    .subject-field.has-value .subject-select {
+      padding-top: 20px;
+      padding-bottom: 12px;
+      border: 2px solid #3b82f6;
+      box-shadow: 0 0 0 2px rgba(59,130,246,0.10);
+      color: #e5e7eb;
+    }
+
+    .subject-select:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 2px rgba(59,130,246,0.10);
+    }
+
+    .subject-select option {
+      color: #0f172a;
+      background: #ffffff;
+    }
+
+    body.light-theme .subject-label {
+      background: #dbe3ee;
+      color: #2563eb;
+    }
+
+    body.light-theme .subject-field::after {
+      color: rgba(15,23,42,0.58);
+    }
+
+    body.light-theme .subject-select {
+      background: rgba(255,255,255,.92);
+      color: transparent;
+      border: 1px solid rgba(148,163,184,0.26);
+      background-image: linear-gradient(45deg, transparent 50%, #64748b 50%), linear-gradient(135deg, #64748b 50%, transparent 50%);
+    }
+
+    body.light-theme .subject-field.active .subject-select,
+    body.light-theme .subject-field.has-value .subject-select {
+      border: 2px solid #3b82f6;
+      box-shadow: 0 0 0 2px rgba(59,130,246,0.08);
+      color: #0f172a;
+    }
+
 </style>
 </head>
 <body>
@@ -2140,7 +2247,16 @@ body.light-theme .loader-brand {
     <input type="email" id="emailInput" name="email" placeholder="Email" required style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;">
   </div>
 
-  <input type="text" id="subjectInput" name="subject" placeholder="Topic / Subject" style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;">
+  <div class="subject-field" id="subjectField">
+            <label for="subjectInput" class="subject-label">Topic / Subject *</label>
+            <select id="subjectInput" name="subject" required class="subject-select">
+              <option value="" selected disabled hidden></option>
+              <option value="General Enquiry">General Enquiry</option>
+              <option value="Project Consultation">Project Consultation</option>
+              <option value="Technical Support">Technical Support</option>
+              <option value="Consultation">Consultation</option>
+            </select>
+          </div>
   <textarea rows="6" id="messageInput" name="message" placeholder="Message" required style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;resize:vertical;"></textarea>
 
   
@@ -2695,6 +2811,39 @@ document.addEventListener('click', (e) => {
     setTimeout(() => {
       loader.classList.add('hidden');
     }, 1400);
+  });
+</script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const subjectField = document.getElementById('subjectField');
+    const subjectInput = document.getElementById('subjectInput');
+
+    if (!subjectField || !subjectInput) return;
+
+    function syncSubjectState() {
+      if (subjectInput.value) {
+        subjectField.classList.add('has-value');
+      } else {
+        subjectField.classList.remove('has-value');
+      }
+    }
+
+    subjectInput.addEventListener('focus', function () {
+      subjectField.classList.add('active');
+    });
+
+    subjectInput.addEventListener('blur', function () {
+      subjectField.classList.remove('active');
+      syncSubjectState();
+    });
+
+    subjectInput.addEventListener('change', function () {
+      syncSubjectState();
+    });
+
+    syncSubjectState();
   });
 </script>
 
