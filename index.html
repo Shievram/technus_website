@@ -2113,6 +2113,138 @@ body.light-theme .loader-brand {
       all: unset;
     }
 
+
+    /* Stable floating-label subject select */
+    .subject-select-wrap {
+      position: relative;
+      width: 100%;
+    }
+
+    .subject-floating-label {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(15, 23, 42, 0.58);
+      background: transparent;
+      padding: 0 6px;
+      font-size: 1rem;
+      line-height: 1;
+      pointer-events: none;
+      transition: top 0.18s ease, transform 0.18s ease, font-size 0.18s ease, color 0.18s ease, background 0.18s ease;
+      z-index: 2;
+    }
+
+    .subject-select-wrap.active .subject-floating-label,
+    .subject-select-wrap.has-value .subject-floating-label {
+      top: 0;
+      transform: translateY(-50%);
+      font-size: 0.9rem;
+      color: #2563eb;
+      background: #eef3f8;
+    }
+
+    #subjectInput {
+      width: 100% !important;
+      appearance: auto !important;
+      -webkit-appearance: menulist !important;
+      -moz-appearance: menulist !important;
+      border-radius: 10px !important;
+      border: 1px solid rgba(148,163,184,0.26) !important;
+      background: rgba(255,255,255,.92) !important;
+      color: #0f172a !important;
+      box-shadow: none !important;
+      padding: 22px 16px 12px 16px !important;
+      min-height: 58px !important;
+      outline: none !important;
+    }
+
+    .subject-select-wrap:not(.active):not(.has-value) #subjectInput {
+      color: transparent !important;
+    }
+
+    .subject-select-wrap.active #subjectInput,
+    .subject-select-wrap.has-value #subjectInput {
+      border: 2px solid #2563eb !important;
+      box-shadow: 0 0 0 2px rgba(37,99,235,0.08) !important;
+    }
+
+    #subjectInput option {
+      color: #0f172a;
+      background: #ffffff;
+    }
+
+    body:not(.light-theme) .subject-floating-label {
+      color: rgba(229,231,235,0.72);
+    }
+
+    body:not(.light-theme) .subject-select-wrap.active .subject-floating-label,
+    body:not(.light-theme) .subject-select-wrap.has-value .subject-floating-label {
+      color: #60a5fa;
+      background: #0f172a;
+    }
+
+    body:not(.light-theme) #subjectInput {
+      color: #e5e7eb !important;
+      border: 1px solid rgba(255,255,255,.1) !important;
+      background: rgba(255,255,255,.04) !important;
+    }
+
+    body:not(.light-theme) .subject-select-wrap:not(.active):not(.has-value) #subjectInput {
+      color: transparent !important;
+    }
+
+    body:not(.light-theme) .subject-select-wrap.active #subjectInput,
+    body:not(.light-theme) .subject-select-wrap.has-value #subjectInput {
+      border: 2px solid #3b82f6 !important;
+      box-shadow: 0 0 0 2px rgba(59,130,246,0.10) !important;
+      color: #e5e7eb !important;
+    }
+
+
+    /* Fix duplicate subject placeholder inside open dropdown */
+    .subject-select-wrap:not(.has-value):not(.active) .subject-floating-label {
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      background: transparent;
+      color: rgba(15, 23, 42, 0.58);
+    }
+
+    .subject-select-wrap.active .subject-floating-label,
+    .subject-select-wrap.has-value .subject-floating-label {
+      top: 0;
+      transform: translateY(-50%);
+      font-size: 0.9rem;
+      color: #2563eb;
+      background: #eef3f8;
+    }
+
+    body:not(.light-theme) .subject-select-wrap:not(.has-value):not(.active) .subject-floating-label {
+      color: rgba(229,231,235,0.72);
+      background: transparent;
+    }
+
+    body:not(.light-theme) .subject-select-wrap.active .subject-floating-label,
+    body:not(.light-theme) .subject-select-wrap.has-value .subject-floating-label {
+      color: #60a5fa;
+      background: #0f172a;
+    }
+
+    .subject-select-wrap:not(.has-value):not(.active) #subjectInput {
+      color: transparent !important;
+    }
+
+    .subject-select-wrap.active #subjectInput,
+    .subject-select-wrap.has-value #subjectInput {
+      color: #0f172a !important;
+    }
+
+    body:not(.light-theme) .subject-select-wrap.active #subjectInput,
+    body:not(.light-theme) .subject-select-wrap.has-value #subjectInput {
+      color: #e5e7eb !important;
+    }
+
 </style>
 </head>
 <body>
@@ -2280,13 +2412,16 @@ body.light-theme .loader-brand {
     <input type="email" id="emailInput" name="email" placeholder="Email" required style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;">
   </div>
 
-  <select id="subjectInput" name="subject" required style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;min-height:58px;">
-            <option value="" selected disabled>Topic / Subject</option>
+  <div class="subject-select-wrap" id="subjectSelectWrap">
+            <label for="subjectInput" class="subject-floating-label" id="subjectFloatingLabel">Topic / Subject</label>
+            <select id="subjectInput" name="subject" required style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;min-height:58px;">
+            <option value="" selected disabled hidden></option>
             <option value="General Enquiry">General Enquiry</option>
             <option value="Project Consultation">Project Consultation</option>
             <option value="Technical Support">Technical Support</option>
             <option value="Partnership">Partnership</option>
           </select>
+          </div>
   <textarea rows="6" id="messageInput" name="message" placeholder="Message" required style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;resize:vertical;"></textarea>
 
   
@@ -2411,6 +2546,11 @@ body.light-theme .loader-brand {
         namePlaceholder: 'Name',
         emailPlaceholder: 'Email',
         subjectPlaceholder: 'Topic / Subject',
+        subjectOptionDefault: 'Topic / Subject',
+        subjectOptionGeneral: 'General Enquiry',
+        subjectOptionProject: 'Project Consultation',
+        subjectOptionSupport: 'Technical Support',
+        subjectOptionConsultation: 'Partnership',
         messagePlaceholder: 'Message',
         sendBtn: 'Send Message',
         sending: 'Sending...',
@@ -2478,6 +2618,11 @@ body.light-theme .loader-brand {
         namePlaceholder: 'Nama',
         emailPlaceholder: 'E-mel',
         subjectPlaceholder: 'Topik / Subjek',
+        subjectOptionDefault: 'Topik / Subjek',
+        subjectOptionGeneral: 'Pertanyaan Umum',
+        subjectOptionProject: 'Perundingan Projek',
+        subjectOptionSupport: 'Sokongan Teknikal',
+        subjectOptionConsultation: 'Kerjasama',
         messagePlaceholder: 'Mesej',
         sendBtn: 'Hantar Mesej',
         sending: 'Menghantar...',
@@ -2542,7 +2687,21 @@ body.light-theme .loader-brand {
       document.querySelector('#contact .section-text').textContent = t.contactText;
       document.getElementById('nameInput').placeholder = t.namePlaceholder;
       document.getElementById('emailInput').placeholder = t.emailPlaceholder;
-      document.getElementById('subjectInput').placeholder = t.subjectPlaceholder;
+      const subjectInput = document.getElementById('subjectInput');
+      const subjectFloatingLabel = document.getElementById('subjectFloatingLabel');
+      if (subjectFloatingLabel) {
+        subjectFloatingLabel.textContent = t.subjectOptionDefault;
+      }
+      if (subjectInput && subjectInput.tagName === 'SELECT') {
+        const subjectOptions = subjectInput.options;
+        if (subjectOptions.length >= 5) {
+          subjectOptions[0].textContent = '';
+          subjectOptions[1].textContent = t.subjectOptionGeneral;
+          subjectOptions[2].textContent = t.subjectOptionProject;
+          subjectOptions[3].textContent = t.subjectOptionSupport;
+          subjectOptions[4].textContent = t.subjectOptionConsultation;
+        }
+      }
       document.getElementById('messageInput').placeholder = t.messagePlaceholder;
       document.getElementById('sendBtn').textContent = t.sendBtn;
 
@@ -2844,6 +3003,39 @@ document.addEventListener('click', (e) => {
   });
 </script>
 
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const subjectInput = document.getElementById('subjectInput');
+    const subjectWrap = document.getElementById('subjectSelectWrap');
+
+    if (!subjectInput || !subjectWrap) return;
+
+    function syncSubjectWrap() {
+      if (subjectInput.value) {
+        subjectWrap.classList.add('has-value');
+      } else {
+        subjectWrap.classList.remove('has-value');
+      }
+    }
+
+    subjectInput.addEventListener('focus', function () {
+      subjectWrap.classList.add('active');
+    });
+
+    subjectInput.addEventListener('blur', function () {
+      subjectWrap.classList.remove('active');
+      syncSubjectWrap();
+    });
+
+    subjectInput.addEventListener('change', function () {
+      syncSubjectWrap();
+    });
+
+    syncSubjectWrap();
+  });
+</script>
 
 </body>
 </html>
