@@ -2080,6 +2080,39 @@ body.light-theme .loader-brand {
       color: #0f172a;
     }
 
+
+    /* Clean subject dropdown reset */
+    #subjectInput {
+      width: 100% !important;
+      appearance: auto !important;
+      -webkit-appearance: menulist !important;
+      -moz-appearance: menulist !important;
+      background-image: none !important;
+      color: #e5e7eb !important;
+      border-radius: 10px !important;
+      border: 1px solid rgba(255,255,255,.1) !important;
+      background-color: rgba(255,255,255,.04) !important;
+      box-shadow: none !important;
+      padding: 14px 16px !important;
+      min-height: 58px !important;
+    }
+
+    #subjectInput option {
+      color: #0f172a;
+      background: #ffffff;
+    }
+
+    body.light-theme #subjectInput {
+      color: #0f172a !important;
+      border: 1px solid rgba(148,163,184,0.26) !important;
+      background: rgba(255,255,255,.92) !important;
+    }
+
+    .subject-field,
+    .subject-label {
+      all: unset;
+    }
+
 </style>
 </head>
 <body>
@@ -2247,16 +2280,13 @@ body.light-theme .loader-brand {
     <input type="email" id="emailInput" name="email" placeholder="Email" required style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;">
   </div>
 
-  <div class="subject-field" id="subjectField">
-            <label for="subjectInput" class="subject-label">Topic / Subject *</label>
-            <select id="subjectInput" name="subject" required class="subject-select">
-              <option value="" selected disabled hidden></option>
-              <option value="General Enquiry">General Enquiry</option>
-              <option value="Project Consultation">Project Consultation</option>
-              <option value="Technical Support">Technical Support</option>
-              <option value="Consultation">Consultation</option>
-            </select>
-          </div>
+  <select id="subjectInput" name="subject" required style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;min-height:58px;">
+            <option value="" selected disabled>Topic / Subject</option>
+            <option value="General Enquiry">General Enquiry</option>
+            <option value="Project Consultation">Project Consultation</option>
+            <option value="Technical Support">Technical Support</option>
+            <option value="Consultation">Consultation</option>
+          </select>
   <textarea rows="6" id="messageInput" name="message" placeholder="Message" required style="padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#e5e7eb;resize:vertical;"></textarea>
 
   
@@ -2814,38 +2844,6 @@ document.addEventListener('click', (e) => {
   });
 </script>
 
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const subjectField = document.getElementById('subjectField');
-    const subjectInput = document.getElementById('subjectInput');
-
-    if (!subjectField || !subjectInput) return;
-
-    function syncSubjectState() {
-      if (subjectInput.value) {
-        subjectField.classList.add('has-value');
-      } else {
-        subjectField.classList.remove('has-value');
-      }
-    }
-
-    subjectInput.addEventListener('focus', function () {
-      subjectField.classList.add('active');
-    });
-
-    subjectInput.addEventListener('blur', function () {
-      subjectField.classList.remove('active');
-      syncSubjectState();
-    });
-
-    subjectInput.addEventListener('change', function () {
-      syncSubjectState();
-    });
-
-    syncSubjectState();
-  });
-</script>
 
 </body>
 </html>
