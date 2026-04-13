@@ -2379,7 +2379,7 @@ body.light-theme .loader-brand {
     <h2>Our Projects</h2>
     <div class="services-grid">
   <div class="card" style="min-height:220px;display:flex;flex-direction:column;justify-content:space-between;">
-    <span class="project-live-badge">Live</span>
+    <span class="project-live-badge" id="projectLiveBadge">Live</span>
     <div>
       <div class="icon-chip icon-project-a" style="margin-bottom:18px;" aria-hidden="true"><svg viewBox="0 0 24 24" role="img"><path fill="#ffffff" d="M4 4h7v7H4V4zm9 0h7v4h-7V4zM4 13h4v7H4v-7zm6 0h10v7H10v-7z"/></svg></div>
       <h3>Data Platform & Analytics Solution</h3>
@@ -2535,6 +2535,7 @@ body.light-theme .loader-brand {
         service6Title: 'Support & Maintenance',
         service6Text: 'Ongoing technical support, issue resolution, and enhancement services to keep your systems running smoothly.',
         projectsTag: 'What We Build',
+        liveBadge: 'Live',
         projectsTitle: 'Our Projects',
         project1Title: 'Data Platform & Analytics Solution',
         project1Text: 'A modern analytics solution concept designed to centralize business data, improve reporting visibility, and support better operational decisions.',
@@ -2608,6 +2609,7 @@ body.light-theme .loader-brand {
         service6Text: 'Sokongan teknikal berterusan, penyelesaian isu, dan perkhidmatan penambahbaikan untuk memastikan sistem anda berjalan lancar.',
         projectsTag: 'Apa Yang Kami Bina',
         projectsTitle: 'Projek Kami',
+        liveBadge: 'Beroperasi',
         project1Title: 'Platform Data & Penyelesaian Analitik',
         project1Text: 'Konsep penyelesaian analitik moden yang direka untuk memusatkan data perniagaan, meningkatkan keterlihatan pelaporan, dan menyokong keputusan operasi yang lebih baik.',
         project2Title: 'Lebih Banyak Projek Akan Datang',
@@ -2645,6 +2647,8 @@ body.light-theme .loader-brand {
     function applyLanguage(lang) {
       const t = translations[lang];
       document.title = t.title;
+      const projectLiveBadge = document.getElementById('projectLiveBadge');
+      if (projectLiveBadge) projectLiveBadge.textContent = t.liveBadge;
     
 
       document.querySelector('#home h1').textContent = t.heroTitle;
