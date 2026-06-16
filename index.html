@@ -1753,6 +1753,11 @@
     const LOCAL_HOSTS = ["", "localhost", "127.0.0.1", "::1"];
     const isLocalPreview = LOCAL_HOSTS.includes(window.location.hostname);
 
+    // Prevent the Send button from loading forever if /api/contact is not available.
+    // Keep this true for local preview/static hosting. Set to false only when your backend /api/contact is ready.
+    const SIMULATE_FORM_SUBMISSION = true;
+    const FORM_TIMEOUT_MS = 10000;
+
     const navLinks = document.getElementById("navLinks");
     const menuBtn = document.getElementById("menuBtn");
     const themeToggle = document.getElementById("themeToggle");
@@ -1917,7 +1922,7 @@
       sendBtn.textContent = currentText("sending");
       formHelperText.textContent = "";
 
-      if (isLocalPreview) {
+      if (isLocalPreview || SIMULATE_FORM_SUBMISSION) {
         setTimeout(() => {
           contactForm.reset();
           if (typeof grecaptcha !== "undefined") grecaptcha.reset();
@@ -1930,11 +1935,17 @@
       }
 
       try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), FORM_TIMEOUT_MS);
+
         const response = await fetch(CONTACT_API_ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/json", "Accept": "application/json" },
-          body: JSON.stringify(payload)
+          body: JSON.stringify(payload),
+          signal: controller.signal
         });
+
+        clearTimeout(timeoutId);
 
         const result = await response.json().catch(() => ({}));
         if (response.ok && result.success) {
@@ -1945,7 +1956,10 @@
           showPopup("error", currentText("popupErrorTitle"), result.message || currentText("popupErrorMessage"));
         }
       } catch (error) {
-        showPopup("error", currentText("popupErrorTitle"), currentText("popupErrorMessage"));
+        const timeoutMessage = error && error.name === "AbortError"
+          ? "The form is taking too long to send. Please try again, or check that your /api/contact backend is running."
+          : currentText("popupErrorMessage");
+        showPopup("error", currentText("popupErrorTitle"), timeoutMessage);
       } finally {
         sendBtn.disabled = false;
         sendBtn.textContent = currentText("sendBtn");
