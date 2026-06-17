@@ -1762,8 +1762,8 @@
     const isLocalPreview = LOCAL_HOSTS.includes(window.location.hostname);
 
     // Prevent the Send button from loading forever if /api/contact is not available.
-    // Keep this true for local preview/static hosting. Set to false only when your backend /api/contact is ready.
-    const SIMULATE_FORM_SUBMISSION = true;
+    // False means deployed site will call /api/contact and send email through Resend. Localhost still previews safely.
+    const SIMULATE_FORM_SUBMISSION = false;
     const FORM_TIMEOUT_MS = 10000;
 
     const navLinks = document.getElementById("navLinks");
